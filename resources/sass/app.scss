@@ -1,0 +1,64 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+/* タブメニュー */
+.tab-menu {
+  display: flex;
+  margin: 0 -5px;
+}
+
+.tab-menu__item {
+  box-sizing: border-box;
+  padding: 0 5px;
+  list-style: none;
+}
+
+
+.tab-trigger { /* label */
+  text-align: left;
+  cursor: pointer;
+  display: block;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-bottom: 0;
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+  background-color: lightgray;
+  position: relative;
+}
+
+.tab-trigger.is-active {
+  background-color: lightblue;
+}
+
+
+/* タブコンテンツ */
+.tab-content {
+  border: 1px solid #ccc;
+}
+.tab-content__item {
+  box-sizing: border-box;
+  padding: 20px;
+  display: none;
+  text-align: left;
+  list-style: none;
+}
+.tab-content__item.is-active {
+  display: block;
+  animation: fade 0.5s ease;
+}
+
+@keyframes fade {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
