@@ -3,30 +3,21 @@
 @section('content')
 <div class="container">
    <h4>月次仕訳</h4>
-   <div class="card"></div>
 
-   <div class="row">
-      <div class="col-md-7">
-         <div class="nav-tabs-custom">
+   <ul class="tab-menu">
+      @foreach ($m_summary as $m_s)
+      <li class="tab-menu__item"><span class="tab-trigger js-tab-trigger" data-id="{{ $m_s->id }}">{{ $m_s->period_start }}</span></li>
+      @endforeach
+   </ul><!-- .tab-menu -->
 
-            <ul class="nav nav-tabs">
-               @foreach($items as $key => $item)
-               <li><a href="#tab_{{ $key }}" data-toggle="tab" >{!! $item->name !!}</a></li>
-               @endforeach
-            </ul>
-
-            <div class="tab-content">
-            @foreach($items as $key => $item)
-               <div class="tab-pane{{ $key == 1 ? " active" : "" }}" id="tab_{{ $key }}">
-                  @foreach($item->stuff as $data)
-                  <label class="mylabel">{{ $data->name }}</label>
-                  @endforeach
-               </div>
-            @endforeach
-            </div>
-         </div>
-      </div>
-   </div>
+   <div class="tab-content">
+      @foreach ($m_summary as $m_s)
+      <div class="tab-content__item js-tab-target" id="{{ $m_s->id }}">
+         <p>{{ $m_s->monthly_grand_total }}</p>
+      </div><!-- .tab-content__item -->
+      @endforeach
+   </div><!-- .tab-content -->
 
 </div>
+
 @endsection

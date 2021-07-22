@@ -26,6 +26,12 @@ class Month_summaryController extends Controller
      */
     public function index()
     {
-        return view('month_summary.index');
+        $dt_from = new \Carbon\Carbon();
+		$dt_from->startOfMonth();
+		$dt_to = new \Carbon\Carbon();
+		$dt_to->endOfMonth();
+        // 1ヶ月分のデータを取得
+		$m_summary = Month_summary::whereBetween('period_end', [$dt_from, $dt_to])->get();
+        return view('month_summary.index', compact('m_summary'));
     }
 }
