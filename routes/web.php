@@ -14,6 +14,7 @@
 Auth::routes();
 
 Route::get('/', 'Slip\SlipController@index')->name('slip.index');
+Route::get('ajax/slip', 'Ajax\SlipController@index');
 Route::post('slip/store', 'Slip\SlipController@store')->name('slip.store');
 Route::post('slip/update', 'Slip\SlipController@update')->name('slip.update');
 Route::post('slip/delete/{id}', 'Slip\SlipController@destroy')->name('slip.delete');

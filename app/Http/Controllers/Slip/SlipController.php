@@ -39,8 +39,10 @@ class SlipController extends Controller
         $gtotal_sl = Slip::whereBetween('accrual_date', [$dt_from, $dt_to])->sum('grand_total');
         // セレクトボックスの科目
         $subject = Subject::all();
+
+        $subject_names = Subject::get(['subject_name'])->toArray();
         
-        return view('slip.index', compact('slip', 'subject', 'gtotal_sl'));
+        return view('slip.index', compact('slip', 'subject', 'subject_names', 'gtotal_sl'));
     }
 
     /**
