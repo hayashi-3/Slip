@@ -6,7 +6,7 @@
 
    <ul class="tab-menu">
       @foreach ($m_summary as $m_s)
-      <li class="tab-menu__item"><span class="tab-trigger js-tab-trigger" data-id="{{ $m_s->id }}">{{ $m_s->period_start }}</span></li>
+      <li class="tab-menu__item"><span class="tab-trigger js-tab-trigger" data-id="{{ $m_s->id }}">{{ $m_s->month }}</span></li>
       @endforeach
    </ul><!-- .tab-menu -->
 

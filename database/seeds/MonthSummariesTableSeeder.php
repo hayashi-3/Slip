@@ -13,17 +13,13 @@ class MonthSummariesTableSeeder extends Seeder
     {
         DB::table('month_summaries')->insert([
             [
-                'slip_id' => '1',
-                'period_start' => '2021-07-01',
-                'period_end' => '2021-07-31',
+                'month' => '2021-06-01',
                 'monthly_subtotal' => 20000,
                 'monthly_sales_tax' => 2000,
                 'monthly_grand_total' => 22000
             ],
             [
-                'slip_id' => '1',
-                'period_start' => '2021-07-01',
-                'period_end' => '2021-07-31',
+                'month' => '2021-07-01',
                 'monthly_subtotal' => 50000,
                 'monthly_sales_tax' => 5000,
                 'monthly_grand_total' => 55000

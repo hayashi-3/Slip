@@ -27,11 +27,4 @@ class Slip extends Model
         return $this->belongsTo('App\Model\Subject');
     }
 
-     /**
-     * この伝票の月間を取得
-     */
-    public function month_summary()
-    {
-        return $this->belongsTo('App\Model\Month_summary');
-    }
 }

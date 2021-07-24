@@ -81,7 +81,7 @@
    </div>
    </div>
 
-   <h4 class="mt-3">今月の支出 ¥{{ number_format($gtotal_sl) }}</h4>
+   <h4 class="mt-3">今月の支出　¥{{ number_format($gtotal_sl) }} (税込)</h4>
 
    <ul class="tab-menu">
       <li class="tab-menu__item">
