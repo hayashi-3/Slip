@@ -51,7 +51,7 @@ class MonthSummaryInsert extends Command
         $sales_tax = Slip::whereBetween('accrual_date', [$last_month_from, $last_month_to])->sum('sales_tax');
         $grand_total = Slip::whereBetween('accrual_date', [$last_month_from, $last_month_to])->sum('grand_total');
 
-        \DB::beginTransaction(); 
+        \DB::beginTransaction();
         try{
             Month_summary::create([
                 'month'=> $last_month_from,

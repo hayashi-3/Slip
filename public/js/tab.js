@@ -1,25 +1,3 @@
-// const tab = document.querySelectorAll(".tab li a");
-// const content = document.querySelectorAll(".content li");
-
-// console.log(tab);
-// console.log(content);
-
-// for (let i = 0; i = tab.length; i++) {
-//     tab[i].addEventListener("click", function(e) {
-//         e.preventDefault();
-
-//         for (let j = 0; j = tab.length; j++) {
-//             tab[j].classList.remove("active");
-//         }
-//         for (let j = 0; j = tab.length; j++) {
-//             content[j].classList.remove("active");
-//         }
-
-//         this.classList.add("active");
-//         content[i].classList.add("active");
-//     })
-// }
-
 document.addEventListener('DOMContentLoaded', () => {
   // タブメニュークラス'.js-tab-trigger'を持つ要素を取得
   const tabTriggers = document.querySelectorAll('.js-tab-trigger');

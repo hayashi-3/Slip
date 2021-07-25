@@ -17,6 +17,7 @@ class Slips extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('subject_id');
             $table->foreign('subject_id')->references('id')->on('subjects')->onDelete('cascade');
+            $table->boolean('is_cash')->default(0);
             $table->date('accrual_date');
             $table->integer('price');
             $table->integer('subtotal');

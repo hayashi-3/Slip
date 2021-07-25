@@ -6,10 +6,10 @@ var myPieChart = new Chart(ctx, {
     labels: subject_names,
     datasets: [{
         backgroundColor: [
-            "#87cefa",
-            "#87ceeb",
-            "#add8e6",
-            "#afeeee"
+            "#0000cd",
+            "#1e90ff",
+            "#6495ed",
+            "#add8e6"
         ],
         data: subtotal
     }]

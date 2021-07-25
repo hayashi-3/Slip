@@ -36,6 +36,11 @@ class SlipController extends Controller
 		$dt_to->endOfMonth();
         // 1ヶ月分のデータを取得
 		$slip = Slip::whereBetween('accrual_date', [$dt_from, $dt_to])->get();
+        // 現金支出分
+        $cash_slip = Slip::whereBetween('accrual_date', [$dt_from, $dt_to])->where('is_cash', 0)->get();
+        // クレジットカード支出分
+        $credit_slip = Slip::whereBetween('accrual_date', [$dt_from, $dt_to])->where('is_cash', 1)->get();
+
         // 1ヶ月分の支出
         $gtotal_sl = Slip::whereBetween('accrual_date', [$dt_from, $dt_to])->sum('grand_total');
         // セレクトボックスの科目
@@ -43,7 +48,7 @@ class SlipController extends Controller
 
         $group_slip = DB::table('subjects')->leftJoin('slips', 'subjects.id', '=', 'slips.subject_id')->whereBetween('slips.accrual_date', [$dt_from, $dt_to])->select('subjects.subject_name', DB::raw("sum(slips.grand_total) as sum"))->groupBy('subjects.subject_name')->get();
         
-        return view('slip.index', compact('slip', 'subject', 'group_slip', 'gtotal_sl'));
+        return view('slip.index', compact('slip', 'subject', 'group_slip', 'cash_slip', 'credit_slip', 'gtotal_sl'));
     }
 
     /**
