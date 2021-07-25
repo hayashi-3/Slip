@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
+use Illuminate\Support\Facades\DB;
 
 class SlipController extends Controller
 {
@@ -40,9 +41,9 @@ class SlipController extends Controller
         // セレクトボックスの科目
         $subject = Subject::all();
 
-        $subject_names = Subject::get(['subject_name'])->toArray();
+        $group_slip = DB::table('subjects')->leftJoin('slips', 'subjects.id', '=', 'slips.subject_id')->whereBetween('slips.accrual_date', [$dt_from, $dt_to])->select('subjects.subject_name', DB::raw("sum(slips.grand_total) as sum"))->groupBy('subjects.subject_name')->get();
         
-        return view('slip.index', compact('slip', 'subject', 'subject_names', 'gtotal_sl'));
+        return view('slip.index', compact('slip', 'subject', 'group_slip', 'gtotal_sl'));
     }
 
     /**

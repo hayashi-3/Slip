@@ -1,22 +1,23 @@
-var ctx = document.getElementById("myPieChart");
-  var myPieChart = new Chart(ctx, {
-    type: 'pie',
-    data: {
-      labels: [subject_names],
-      datasets: [{
-          backgroundColor: [
-              "#BB5179",
-              "#FAFF67",
-              "#58A27C",
-              "#3C00FF"
-          ],
-          data: [38, 31, 21, 10]
-      }]
-    },
-    options: {
-      title: {
-        display: true,
-        text: '支出 割合'
-      }
+var ctx = document.getElementById("pieChart");
+
+var myPieChart = new Chart(ctx, {
+  type: 'pie',
+  data: {
+    labels: subject_names,
+    datasets: [{
+        backgroundColor: [
+            "#87cefa",
+            "#87ceeb",
+            "#add8e6",
+            "#afeeee"
+        ],
+        data: subtotal
+    }]
+  },
+  options: {
+    title: {
+      display: true,
+      text: '支出 割合'
     }
-  });
+  }
+});

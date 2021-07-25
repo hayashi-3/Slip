@@ -34,10 +34,8 @@
                   <input type="number" name="price" class="form-control" id="price">
               </div>
               <div class="form-group">
-                @foreach($subject as $sb)
-                  <label for="sb" data-cal="{{ $sb->calculation }}">本体金額</label>
-                  <input type="number" name="subtotal" class="form-control" id="sb">
-                @endforeach
+                <label for="sb">本体金額</label>
+                <input type="number" name="subtotal" class="form-control" id="sb">
               </div>
               <div class="form-group">
                   <label for="st_rate">消費税率(%)</label>

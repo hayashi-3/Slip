@@ -143,9 +143,22 @@
    </div><!-- .tab-content -->
 
    <div class="mt-5">
-      <canvas id="myPieChart"></canvas>
+      <canvas id="pieChart"></canvas>
       <script type="text/javascript">
-        var subject_names = '<?php echo implode(",", current($subject_names)) ?>';
+        var json_slip = <?php
+            $json_slip = json_encode($group_slip);
+            echo $json_slip; ?>;
+
+         var subject_names = [];
+         for (var i = 0; i < json_slip.length; i++) {
+            subject_names.push(json_slip[i].subject_name);
+         }
+
+         var subtotal = [];
+         for (var i = 0; i < json_slip.length; i++) {
+            subtotal.push(json_slip[i].sum);
+         }
+         
       </script>
    </div>
 </div>
