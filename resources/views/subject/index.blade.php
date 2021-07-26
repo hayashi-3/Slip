@@ -10,6 +10,9 @@
 
 <div class="container">
   <h4>科目管理</h4>
+  <a href="{{ route('subject.create') }}">		
+      <button class="btn btn-success mb-3">新規登録</button>
+  </a>
   <div class="card"></div>
 
   <table class="table">

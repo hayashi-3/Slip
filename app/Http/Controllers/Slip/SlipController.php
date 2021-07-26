@@ -4,11 +4,14 @@ namespace App\Http\Controllers\Slip;
 
 use App\Model\Slip;
 use App\Model\Subject;
+use App\Http\Requests\StoreSlipPost;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Support\Facades\DB;
+use App\Exports\SlipExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SlipController extends Controller
 {
@@ -52,23 +55,33 @@ class SlipController extends Controller
     }
 
     /**
+     * エクセル出力
+     *
+     */
+    public function export(){
+        return Excel::download(new SlipExport, '経費.xlsx');
+    }
+
+    /**
      * 新規登録
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreSlipPost $request)
     {
+        // バリデーション済みデータの取得
+        // $inputs = $request->validated();
         $inputs = $request->all();
 
-        \DB::beginTransaction();
-        try {
+        // \DB::beginTransaction();
+        // try {
             Slip::create($inputs);
-            \DB::commit();
-        } catch(\Throwable $e) {
-            \DB::rollback();
-            abort(500);
-        }
+        //     \DB::commit();
+        // } catch(\Throwable $e) {
+        //     \DB::rollback();
+        //     abort(500);
+        // }
         return redirect(route('slip.index'))->with('flash_message', '登録しました');
     }
 
@@ -78,15 +91,18 @@ class SlipController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(StoreSlipPost $request)
     {
-      $inputs = $request->all();
+        // バリデーション済みデータの取得
+        $inputs = $request->validated();
+    //   $inputs = $request->all();
 
         \DB::beginTransaction();
         try {
             $slip = Slip::find($inputs['id']);
             $slip->fill([
             'subject_id' => $inputs['subject_id'],
+            'is_cash' => $inputs['is_cash'],
             'accrual_date' => $inputs['accrual_date'],
             'price' => $inputs['price'],
             'subtotal' => $inputs['subtotal'],

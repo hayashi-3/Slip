@@ -17,6 +17,11 @@
         <div class="modal-body">
             <form method="post" action="{{ route('slip.store') }}">
             @csrf
+            <div class="form-check">
+              <input type="hidden" name="is_cash" class="form-check-input" id="is_cash" value="0">
+              <input type="checkbox" name="is_cash" class="form-check-input" id="is_cash" value="1" checked>
+              <label class="form-check-label" for="is_cash">クレジット</label>
+            </div>
               <div class="form-group">
                   <label for="subject">科目</label>
                   <select name="subject_id" class="form-control" id="subject">

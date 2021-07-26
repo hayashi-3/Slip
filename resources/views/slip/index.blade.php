@@ -8,6 +8,17 @@
    </div>
 @endif
 
+<!-- エラーメッセージ -->
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 <div class="container">
 
    <div class="row">
@@ -15,9 +26,14 @@
          @csrf
          <button type="submit" class="btn btn-outline-success mr-3">伝票を読み取る</button>
       </form>
+
+      <!-- excelのエクスポート -->
+      <a href="{{ route('export') }}">		
+         <button class="btn btn-success mr-3">Excel出力</button>
+      </a>
    
-   <!-- 新規登録フォーム -->
-   @include('slip/_create_form')
+      <!-- 新規登録フォーム -->
+      @include('slip/_create_form')
 
    <h4 class="mt-3">今月の支出　¥{{ number_format($gtotal_sl) }} (税込)</h4>
 
@@ -28,12 +44,12 @@
          </span>
       </li>
       <li class="tab-menu__item">
-         <span class="tab-trigger js-tab-trigger is-active" data-id="tab02">
+         <span class="tab-trigger js-tab-trigger" data-id="tab02">
            現金支払分
          </span>
       </li>
       <li class="tab-menu__item">
-         <span class="tab-trigger js-tab-trigger is-active" data-id="tab03">
+         <span class="tab-trigger js-tab-trigger" data-id="tab03">
            クレジット支払分
          </span>
       </li>
@@ -158,7 +174,7 @@
   </table>
    </div><!-- .tab-content__item -->
 
-   <div class="tab-content__item js-tab-target is-active" id="tab02">
+   <div class="tab-content__item js-tab-target" id="tab02">
 
 <table class="table">
    <thead>
@@ -276,7 +292,7 @@
 </table>
 </div>
 
-<div class="tab-content__item js-tab-target is-active" id="tab03">
+<div class="tab-content__item js-tab-target" id="tab03">
 
 <table class="table">
    <thead>

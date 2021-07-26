@@ -10,6 +10,7 @@ class Slip extends Model
 
     protected $fillable = [
         'subject_id',
+        'is_cash',
         'accrual_date',
         'price',
         'subtotal',
