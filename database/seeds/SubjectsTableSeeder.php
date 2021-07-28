@@ -16,6 +16,10 @@ class SubjectsTableSeeder extends Seeder
                 'subject_name' => '会議費',
                 'calculation' => 1
             ],
+            [
+                'subject_name' => '家賃',
+                'calculation' => 25
+            ],
         ]);
     }
 }

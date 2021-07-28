@@ -22,3 +22,6 @@ Route::resource('subject', 'Slip\SubjectController')->only(['index', 'create', '
 Route::post('subject/update/{id}', 'Slip\SubjectController@update')->name('subject.update');
 Route::get('m_summary', 'Slip\Month_summaryController@index')->name('m_summary.index');
 Route::get('y_summary', 'Slip\Years_summaryController@index')->name('y_summary.index');
+
+Route::get('scan_slip', 'Scan\ScanSlipController@index');
+Route::post('scan_slip/extract', 'Scan\ScanSlipController@extract');

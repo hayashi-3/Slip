@@ -6,14 +6,15 @@
 
    <ul class="tab-menu">
       @foreach ($m_summary as $m_s)
-      <li class="tab-menu__item"><span class="tab-trigger js-tab-trigger" data-id="{{ $m_s->id }}">{{ $m_s->month }}</span></li>
+      <li class="tab-menu__item"><span class="tab-trigger js-tab-trigger" data-id="{{ $m_s->month }}">{{ $m_s->month }}月</span></li>
       @endforeach
    </ul><!-- .tab-menu -->
 
    <div class="tab-content">
       @foreach ($m_summary as $m_s)
-      <div class="tab-content__item js-tab-target" id="{{ $m_s->id }}">
-         <p>{{ $m_s->monthly_grand_total }}</p>
+      <div class="tab-content__item js-tab-target" id="{{ $m_s->month }}">
+      <p>{{ $m_s->subject_name }}：¥{{ number_format($m_s->sum) }}</p>
+      <hr>
       </div><!-- .tab-content__item -->
       @endforeach
    </div><!-- .tab-content -->

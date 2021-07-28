@@ -15,7 +15,10 @@ class MonthSummaries extends Migration
     {
         Schema::create('month_summaries', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->date('month');
+            $table->unsignedBigInteger('subject_id');
+            $table->foreign('subject_id')->references('id')->on('subjects')->onDelete('cascade');
+            $table->integer('year');
+            $table->integer('month');
             $table->integer('monthly_subtotal');
             $table->double('monthly_sales_tax');
             $table->integer('monthly_grand_total');

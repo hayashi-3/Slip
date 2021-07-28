@@ -20,4 +20,12 @@ class Subject extends Model
     {
         return $this->hasMany('App\Model\Slip');
     }
+
+    /**
+     * 紐づく月間サマリーを取得
+     */
+    public function m_summaries()
+    {
+        return $this->hasMany('App\Model\Month_summary');
+    }
 }

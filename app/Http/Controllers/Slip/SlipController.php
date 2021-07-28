@@ -49,7 +49,11 @@ class SlipController extends Controller
         // セレクトボックスの科目
         $subject = Subject::all();
 
-        $group_slip = DB::table('subjects')->leftJoin('slips', 'subjects.id', '=', 'slips.subject_id')->whereBetween('slips.accrual_date', [$dt_from, $dt_to])->select('subjects.subject_name', DB::raw("sum(slips.grand_total) as sum"))->groupBy('subjects.subject_name')->get();
+        $group_slip = DB::table('subjects')->leftJoin('slips', 'subjects.id', '=', 'slips.subject_id')
+                        ->whereBetween('slips.accrual_date', [$dt_from, $dt_to])
+                        ->select('subjects.subject_name', DB::raw("sum(slips.grand_total) as sum"))
+                        ->groupBy('subjects.subject_name')
+                        ->get();
         
         return view('slip.index', compact('slip', 'subject', 'group_slip', 'cash_slip', 'credit_slip', 'gtotal_sl'));
     }
@@ -71,17 +75,16 @@ class SlipController extends Controller
     public function store(StoreSlipPost $request)
     {
         // バリデーション済みデータの取得
-        // $inputs = $request->validated();
-        $inputs = $request->all();
+        $inputs = $request->validated();
 
-        // \DB::beginTransaction();
-        // try {
+        \DB::beginTransaction();
+        try {
             Slip::create($inputs);
-        //     \DB::commit();
-        // } catch(\Throwable $e) {
-        //     \DB::rollback();
-        //     abort(500);
-        // }
+            \DB::commit();
+        } catch(\Throwable $e) {
+            \DB::rollback();
+            abort(500);
+        }
         return redirect(route('slip.index'))->with('flash_message', '登録しました');
     }
 
@@ -95,7 +98,6 @@ class SlipController extends Controller
     {
         // バリデーション済みデータの取得
         $inputs = $request->validated();
-    //   $inputs = $request->all();
 
         \DB::beginTransaction();
         try {
