@@ -45,6 +45,7 @@
               <div class="form-group">
                   <label for="st_rate">消費税率(%)</label>
                   <input type="number" name="sales_tax_rate" class="form-control" id="st_rate">
+                  <input type="button" class="calc-btn" onclick="calc(subtotal.value, sales_tax_rate.value);" value="計算する">
               </div>
               <div class="form-group">
                   <label for="s_tax">消費税金額</label>

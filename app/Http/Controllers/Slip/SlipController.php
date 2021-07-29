@@ -37,6 +37,7 @@ class SlipController extends Controller
 		$dt_from->startOfMonth();
 		$dt_to = new \Carbon\Carbon();
 		$dt_to->endOfMonth();
+       
         // 1ヶ月分のデータを取得
 		$slip = Slip::whereBetween('accrual_date', [$dt_from, $dt_to])->get();
         // 現金支出分

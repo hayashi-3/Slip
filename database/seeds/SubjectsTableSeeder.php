@@ -18,7 +18,7 @@ class SubjectsTableSeeder extends Seeder
             ],
             [
                 'subject_name' => '家賃',
-                'calculation' => 25
+                'calculation' => 0.25
             ],
         ]);
     }
