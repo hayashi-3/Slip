@@ -26,7 +26,9 @@ class StoreSlipPost extends FormRequest
         return [
             'subject_id' => 'required',
             'is_cash' => 'required',
-            'accrual_date' => 'required|date',
+            'accrual_year' => 'required',
+            'accrual_month' => 'required|digits_between:1,12',
+            'accrual_date' => 'required|digits_between:1,31',
             'price' => 'required',
             'subtotal' => 'required',
             'sales_tax_rate' => 'required',

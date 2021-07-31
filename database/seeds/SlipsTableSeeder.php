@@ -13,8 +13,10 @@ class SlipsTableSeeder extends Seeder
     {
         DB::table('slips')->insert([
             [
-                'subject_id' => '1',
-                'accrual_date' => '2021-07-01',
+                'subject_id' => 1,
+                'accrual_year' => 2021,
+                'accrual_month' => 7,
+                'accrual_date' => 1,
                 'price' => 20000,
                 'subtotal' => 20000,
                 'sales_tax_rate' => 10,

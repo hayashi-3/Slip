@@ -52,47 +52,35 @@ class MonthSummaryInsert extends Command
         $dt_to = new \Carbon\Carbon();
         $dt_to->endOfMonth();
         
+        // ここは配列ではない
         $year = new \Carbon\Carbon();
-		$year = $year->year();
+		$year->year;
 
+        // ここも配列ではない
         $month = new \Carbon\Carbon();
-        $month->month();
+        $month->month;
 
-        $m_subject_ids = Slip::groupBy('subject_id')->get(['subject_id']);
-        $subject_id = $query->where(function (Builder $query) use ($m_subject_ids, $data) {
-            $i = 0;
-            foreach ($m_subject_ids as $mb_id) {
-              $where = (!$i) ? 'where' : 'orWhere';
-              $i++;
-              $query->$where("table.{$mb_id}", 'like', '%' . $data . '%');
-            }
-          });
-
+        // これは配列exit
+        $m_subject_id = Slip::groupBy('subject_id')->get(['subject_id']);
+        
         $m_subtotal = DB::table('subjects')->leftJoin('slips', 'subjects.id', '=', 'slips.subject_id')
         ->whereBetween('slips.accrual_date', [$dt_from, $dt_to])->select('subjects.id', DB::raw("sum(slips.subtotal) as monthly_subtotal"))->groupBy('subjects.id')->get();
         
-        // $m_subtotal = DB::table('subjects')->leftJoin('slips', 'subjects.id', '=', 'slips.subject_id')
-        // ->whereBetween('slips.accrual_date', [$dt_from, $dt_to])->select('subjects.id', DB::raw("sum(slips.subtotal) as monthly_subtotal"))->groupBy('subjects.id')->get();
-
         $m_sales_tax = DB::table('subjects')->leftJoin('slips', 'subjects.id', '=', 'slips.subject_id')
         ->whereBetween('slips.accrual_date', [$dt_from, $dt_to])->select('subjects.id', DB::raw("sum(slips.sales_tax) as monthly_monthly_sales_tax"))->groupBy('subjects.id')->get();
 
         $m_grand_total = DB::table('subjects')->leftJoin('slips', 'subjects.id', '=', 'slips.subject_id')
         ->whereBetween('slips.accrual_date', [$dt_from, $dt_to])->select('subjects.id', DB::raw("sum(slips.grand_total) as monthly_grand_total"))->groupBy('subjects.id')->get();
 
-        // $subtotal = Slip::whereBetween('accrual_date', [$last_month_from, $last_month_to])->sum('subtotal');
-        // $sales_tax = Slip::whereBetween('accrual_date', [$last_month_from, $last_month_to])->sum('sales_tax');
-        // $grand_total = Slip::whereBetween('accrual_date', [$last_month_from, $last_month_to])->sum('grand_total');
-
         // \DB::beginTransaction();
         // try{
             Month_summary::updateOrCreate([
-                'subject_id' => $subject_id,
+                ['subject_id' => $m_subject_id],
                 'year' => $year,
                 'month'=> $month,
-                'monthly_subtotal'=> $m_subtotal,
-                'monthly_sales_tax' => $m_sales_tax,
-                'monthly_grand_total' => $m_grand_total,
+                ['monthly_subtotal'=> $m_subtotal],
+                ['monthly_sales_tax' => $m_sales_tax],
+                ['monthly_grand_total' => $m_grand_total],
             ]);
         //     \DB::commit();
         // } catch(\Throwable $e) { 

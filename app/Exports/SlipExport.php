@@ -6,12 +6,10 @@ use App\Model\Slip;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithStrictNullComparison;
-use Maatwebsite\Excel\Concerns\WithColumnFormatting;
-use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use Maatwebsite\Excel\Concerns\WithMapping;
-use PhpOffice\PhpSpreadsheet\Shared\Date;
+use Carbon\Carbon;
 
-class SlipExport implements FromCollection, WithHeadings, WithStrictNullComparison ,WithColumnFormatting, WithMapping
+class SlipExport implements FromCollection, WithHeadings, WithStrictNullComparison , WithMapping
 {
     /**
     * @return \Illuminate\Support\Collection
@@ -24,9 +22,11 @@ class SlipExport implements FromCollection, WithHeadings, WithStrictNullComparis
     public function headings():array
     {
         return [
-            '支払区分',
             '科目名',
-            '発生日',
+            '支払区分',
+            '年',
+            '月',
+            '日',
             '金額',
             '小計',
             '消費税率(%)',
@@ -41,20 +41,15 @@ class SlipExport implements FromCollection, WithHeadings, WithStrictNullComparis
         return [
             $row->subject_id,
             $row->is_cash,
-            Date::stringToExcel($row->accrual_date),
+            $row->accrual_year,
+            $row->accrual_month,
+            $row->accrual_date,
             $row->price,
             $row->subtotal,
             $row->sales_tax_rate,
             $row->sales_tax,
             $row->grand_total,
             $row->remarks
-        ];
-    }
-
-    public function columnFormats() :array
-    {
-        return [
-            'C' => NumberFormat::FORMAT_DATE_YYYYMMDDSLASH,
         ];
     }
 

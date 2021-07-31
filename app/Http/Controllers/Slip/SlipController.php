@@ -33,25 +33,23 @@ class SlipController extends Controller
      */
     public function index()
     {
-        $dt_from = new \Carbon\Carbon();
-		$dt_from->startOfMonth();
-		$dt_to = new \Carbon\Carbon();
-		$dt_to->endOfMonth();
+        $dt_month = new \Carbon\Carbon();
+        $dt_month = (int)$dt_month->month;
        
         // 1ヶ月分のデータを取得
-		$slip = Slip::whereBetween('accrual_date', [$dt_from, $dt_to])->get();
+		$slip = DB::table('slips')->where('accrual_month', $dt_month)->get();
         // 現金支出分
-        $cash_slip = Slip::whereBetween('accrual_date', [$dt_from, $dt_to])->where('is_cash', 0)->get();
+        $cash_slip = Slip::where('accrual_month', $dt_month)->where('is_cash', 0)->get();
         // クレジットカード支出分
-        $credit_slip = Slip::whereBetween('accrual_date', [$dt_from, $dt_to])->where('is_cash', 1)->get();
+        $credit_slip = Slip::where('accrual_month', $dt_month)->where('is_cash', 1)->get();
 
         // 1ヶ月分の支出
-        $gtotal_sl = Slip::whereBetween('accrual_date', [$dt_from, $dt_to])->sum('grand_total');
+        $gtotal_sl = Slip::where('accrual_month', $dt_month)->sum('grand_total');
         // セレクトボックスの科目
         $subject = Subject::all();
 
         $group_slip = DB::table('subjects')->leftJoin('slips', 'subjects.id', '=', 'slips.subject_id')
-                        ->whereBetween('slips.accrual_date', [$dt_from, $dt_to])
+                        ->where('slips.accrual_month', $dt_month)
                         ->select('subjects.subject_name', DB::raw("sum(slips.grand_total) as sum"))
                         ->groupBy('subjects.subject_name')
                         ->get();
@@ -64,7 +62,7 @@ class SlipController extends Controller
      *
      */
     public function export(){
-        return Excel::download(new SlipExport, '経費.xlsx');
+        return Excel::download(new SlipExport, '経費'.date('Ymd').'.xlsx');
     }
 
     /**
@@ -98,7 +96,7 @@ class SlipController extends Controller
     public function update(StoreSlipPost $request)
     {
         // バリデーション済みデータの取得
-        $inputs = $request->validated();
+        $inputs = $request->all();
 
         \DB::beginTransaction();
         try {
@@ -106,6 +104,8 @@ class SlipController extends Controller
             $slip->fill([
             'subject_id' => $inputs['subject_id'],
             'is_cash' => $inputs['is_cash'],
+            'accrual_year' => $inputs['accrual_year'],
+            'accrual_month' => $inputs['accrual_month'],
             'accrual_date' => $inputs['accrual_date'],
             'price' => $inputs['price'],
             'subtotal' => $inputs['subtotal'],

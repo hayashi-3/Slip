@@ -31,8 +31,16 @@
                   </select>
               </div>
               <div class="form-group">
-                  <label for="date">日付</label>
-                  <input type="date" name="accrual_date" class="form-control" id="date">
+                  <label for="year">年</label>
+                  <input type="number" name="accrual_year" class="form-control" id="year">
+              </div>
+              <div class="form-group">
+                  <label for="month">月</label>
+                  <input type="number" name="accrual_month" class="form-control" id="month">
+              </div>
+              <div class="form-group">
+                  <label for="date">日</label>
+                  <input type="number" name="accrual_date" class="form-control" id="date">
               </div>
               <div class="form-group">
                   <label for="price">単価</label>
