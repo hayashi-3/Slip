@@ -41,51 +41,26 @@ class MonthSummaryInsert extends Command
      */
     public function handle()
     {
-        // $month_from = new \Carbon\Carbon();
-        // $last_month_from = $month_from->firstOfMonth();
-        
-        // $month_to = new \Carbon\Carbon();
-		// $last_month_to = $month_to->endOfMonth();
+        $m_subtotal = DB::table('subjects')->leftJoin('slips', 'subjects.id', '=', 'slips.subject_id')->select('subjects.id', 'slips.accrual_year', 'slips.accrual_month', DB::raw('sum(slips.subtotal) as monthly_subtotal, sum(slips.sales_tax) as monthly_sales_tax, sum(slips.grand_total) as monthly_grand_total'))->groupBy('subjects.id', 'slips.accrual_year', 'slips.accrual_month')->get();
 
-        $dt_from = new \Carbon\Carbon();
-        $dt_from->startOfMonth();
-        $dt_to = new \Carbon\Carbon();
-        $dt_to->endOfMonth();
-        
-        // ここは配列ではない
-        $year = new \Carbon\Carbon();
-		$year->year;
-
-        // ここも配列ではない
-        $month = new \Carbon\Carbon();
-        $month->month;
-
-        // これは配列exit
-        $m_subject_id = Slip::groupBy('subject_id')->get(['subject_id']);
-        
-        $m_subtotal = DB::table('subjects')->leftJoin('slips', 'subjects.id', '=', 'slips.subject_id')
-        ->whereBetween('slips.accrual_date', [$dt_from, $dt_to])->select('subjects.id', DB::raw("sum(slips.subtotal) as monthly_subtotal"))->groupBy('subjects.id')->get();
-        
-        $m_sales_tax = DB::table('subjects')->leftJoin('slips', 'subjects.id', '=', 'slips.subject_id')
-        ->whereBetween('slips.accrual_date', [$dt_from, $dt_to])->select('subjects.id', DB::raw("sum(slips.sales_tax) as monthly_monthly_sales_tax"))->groupBy('subjects.id')->get();
-
-        $m_grand_total = DB::table('subjects')->leftJoin('slips', 'subjects.id', '=', 'slips.subject_id')
-        ->whereBetween('slips.accrual_date', [$dt_from, $dt_to])->select('subjects.id', DB::raw("sum(slips.grand_total) as monthly_grand_total"))->groupBy('subjects.id')->get();
-
-        // \DB::beginTransaction();
-        // try{
-            Month_summary::updateOrCreate([
-                ['subject_id' => $m_subject_id],
-                'year' => $year,
-                'month'=> $month,
-                ['monthly_subtotal'=> $m_subtotal],
-                ['monthly_sales_tax' => $m_sales_tax],
-                ['monthly_grand_total' => $m_grand_total],
-            ]);
-        //     \DB::commit();
-        // } catch(\Throwable $e) { 
-        //     \DB::rollback();
-        //     echo('エラーが発生しました');
-        // }
+        \DB::beginTransaction();
+        try{
+            foreach($m_subtotal as $key => $mb) {
+                Month_summary::updateOrCreate(
+                    ['subject_id' => $mb->id],
+                    ['subject_id' => $mb->id,
+                     'year' => $mb->accrual_year,
+                     'month'=> (int)$mb->accrual_month,
+                     'monthly_subtotal'=> $mb->monthly_subtotal,
+                     'monthly_sales_tax' => $mb->monthly_sales_tax,
+                     'monthly_grand_total' => $mb->monthly_grand_total
+                    ]
+                );
+            }
+            \DB::commit();
+        } catch(\Throwable $e) { 
+            \DB::rollback();
+            echo('エラーが発生しました');
+        }
     }
 }

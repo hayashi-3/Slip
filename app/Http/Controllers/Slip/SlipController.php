@@ -62,7 +62,9 @@ class SlipController extends Controller
      *
      */
     public function export(){
-        return Excel::download(new SlipExport, '経費'.date('Ymd').'.xlsx');
+        $dt_year = new \Carbon\Carbon();
+        $year = (int)$dt_year->year;
+        return Excel::download(new SlipExport($year), '経費'.date('Ymd').'.xlsx');
     }
 
     /**

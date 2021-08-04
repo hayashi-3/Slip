@@ -3,54 +3,31 @@
 namespace App\Exports;
 
 use App\Model\Slip;
-use Maatwebsite\Excel\Concerns\FromCollection;
-use Maatwebsite\Excel\Concerns\WithHeadings;
-use Maatwebsite\Excel\Concerns\WithStrictNullComparison;
-use Maatwebsite\Excel\Concerns\WithMapping;
-use Carbon\Carbon;
+// 複数シート作成
+use Maatwebsite\Excel\Concerns\Exportable;
+use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 
-class SlipExport implements FromCollection, WithHeadings, WithStrictNullComparison , WithMapping
+class SlipExport implements WithMultipleSheets
 {
-    /**
-    * @return \Illuminate\Support\Collection
-    */
-    public function collection()
+    use Exportable;
+
+    protected $year;
+
+    public function __construct(int $year)
     {
-        return Slip::all()->makeHidden(['id', 'created_at', 'updated_at']);
+        $this->year = $year;
     }
 
-    public function headings():array
+     /**
+     * @return array
+     */
+    public function sheets(): array
     {
-        return [
-            '科目名',
-            '支払区分',
-            '年',
-            '月',
-            '日',
-            '金額',
-            '小計',
-            '消費税率(%)',
-            '消費税額',
-            '総計',
-            '備考'
-        ];
-    }
-
-    public function map($row) :array
-    {
-        return [
-            $row->subject_id,
-            $row->is_cash,
-            $row->accrual_year,
-            $row->accrual_month,
-            $row->accrual_date,
-            $row->price,
-            $row->subtotal,
-            $row->sales_tax_rate,
-            $row->sales_tax,
-            $row->grand_total,
-            $row->remarks
-        ];
+        $sheets = [];
+        for ($month = 1; $month <= 12; $month++) {
+            $sheets[] = new SlipSheet($this->year, $month);
+        }
+        return $sheets;
     }
 
 }

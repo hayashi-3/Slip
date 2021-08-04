@@ -19,9 +19,9 @@ class MonthSummaries extends Migration
             $table->foreign('subject_id')->references('id')->on('subjects')->onDelete('cascade');
             $table->integer('year');
             $table->integer('month');
-            $table->integer('monthly_subtotal');
-            $table->double('monthly_sales_tax');
-            $table->integer('monthly_grand_total');
+            $table->integer('monthly_subtotal')->nullable();
+            $table->double('monthly_sales_tax')->nullable();
+            $table->integer('monthly_grand_total')->nullable();
             $table->timestamps();
         });
     }
