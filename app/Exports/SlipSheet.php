@@ -8,8 +8,9 @@ use Maatwebsite\Excel\Concerns\WithStrictNullComparison;
 use Maatwebsite\Excel\Concerns\WithTitle;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Carbon\Carbon;
+use Maatwebsite\Excel\Concerns\WithMapping;
 
-class SlipSheet implements FromQuery, WithStrictNullComparison, WithTitle, WithHeadings
+class SlipSheet implements FromQuery, WithTitle, WithHeadings, WithStrictNullComparison, WithMapping
 {
   private $month;
   private $year;
@@ -43,7 +44,6 @@ class SlipSheet implements FromQuery, WithStrictNullComparison, WithTitle, WithH
       return [
           '支払区分',
           '科目名',
-          '年',
           '月',
           '日',
           '金額',
@@ -52,6 +52,22 @@ class SlipSheet implements FromQuery, WithStrictNullComparison, WithTitle, WithH
           '消費税額',
           '総計',
           '備考'
+      ];
+  }
+
+  public function map($row) :array
+  {
+      return [
+          $row->is_cash,
+          $row->subject->subject_name,
+          $row->accrual_month,
+          $row->accrual_date,
+          $row->price,
+          $row->subtotal,
+          $row->sales_tax_rate,
+          $row->sales_tax,
+          $row->grand_total,
+          $row->remarks
       ];
   }
 }

@@ -35,6 +35,11 @@ class Month_summaryController extends Controller
                         ->orderBy('month_summaries.month', 'desc')
                         ->get();
 
+        $y_month = array();
+        for ($month = 1; $month <= 12; $month++) {
+            array_push($y_month, $month);
+        }
+
         $dt_from = new \Carbon\Carbon();
         $dt_from->startOfMonth();
         $dt_to = new \Carbon\Carbon();
@@ -46,7 +51,7 @@ class Month_summaryController extends Controller
                         ->groupBy('subjects.subject_name')
                         ->get();
 
-        return view('month_summary.index', compact('m_summary', 'group_slip'));
+        return view('month_summary.index', compact('m_summary', 'y_month', 'group_slip'));
     }
 
      /**
