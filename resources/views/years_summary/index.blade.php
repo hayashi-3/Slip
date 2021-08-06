@@ -8,8 +8,8 @@
    <div class="row">
       <div class="col col-10"></div>
       <div class="col col-2">
-         <a href="{{ route('export') }}">		
-            <button class="btn btn-success mr-3">
+         <a href="{{ route('export') }}">
+            <button class="btn btn-success mr-3" data-toggle="tooltip" title="1年分の明細を出力します" data-placement="top">
                Excel出力
             </button>
          </a>
@@ -49,4 +49,11 @@
 </div><!-- .tab-content__item -->
 @endforeach
 </div><!-- .tab-content -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+   $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+      })
+   });
+</script>
 @endsection

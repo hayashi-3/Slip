@@ -10,8 +10,6 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Support\Facades\DB;
-use App\Exports\SlipExport;
-use Maatwebsite\Excel\Facades\Excel;
 
 class SlipController extends Controller
 {
@@ -55,16 +53,6 @@ class SlipController extends Controller
                         ->get();
         
         return view('slip.index', compact('slip', 'subject', 'group_slip', 'cash_slip', 'credit_slip', 'gtotal_sl'));
-    }
-
-    /**
-     * エクセル出力
-     *
-     */
-    public function export(){
-        $dt_year = new \Carbon\Carbon();
-        $year = (int)$dt_year->year;
-        return Excel::download(new SlipExport($year), '経費'.date('Ymd').'.xlsx');
     }
 
     /**

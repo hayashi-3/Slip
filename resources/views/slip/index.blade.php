@@ -26,11 +26,6 @@
          @csrf
          <button type="submit" class="btn btn-outline-success mr-3">伝票を読み取る</button>
       </form>
-
-      <!-- excelのエクスポート -->
-      <a href="{{ route('export') }}">		
-         <button class="btn btn-success mr-3">Excel出力</button>
-      </a>
    
       <!-- 新規登録フォーム -->
       @include('slip/_create_form')
