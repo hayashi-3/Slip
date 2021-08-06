@@ -300,5 +300,4 @@
       </script>
    </div>
 </div>
-
 @endsection

@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
             SubjectsTableSeeder::class,
             SlipsTableSeeder::class,
             MonthSummariesTableSeeder::class,
+            YearsSummariesTableSeeder::class,
         ]);
     }
 }

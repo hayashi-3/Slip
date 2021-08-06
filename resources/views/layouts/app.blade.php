@@ -16,6 +16,7 @@
     <script src="{{ asset('js/chart.js') }}" defer></script>
     <script src="{{ asset('js/input.js') }}"></script>
     <script src="{{ asset('js/deleteAlert.js') }}"></script>
+    <script src="{{ asset('js/selectbox.js') }}"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
