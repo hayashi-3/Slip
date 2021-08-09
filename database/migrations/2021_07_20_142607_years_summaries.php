@@ -15,8 +15,9 @@ class YearsSummaries extends Migration
     {
         Schema::create('years_summaries', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->date('accountin_period_start');
-            $table->date('accountin_period_end');
+            $table->unsignedBigInteger('subject_id');
+            $table->foreign('subject_id')->references('id')->on('subjects')->onDelete('cascade');
+            $table->integer('accountin_year');
             $table->integer('year_subtotal');
             $table->double('year_sales_tax');
             $table->integer('year_grand_total');

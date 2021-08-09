@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Exports\SlipExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\DB;
 
 class Years_summaryController extends Controller
 {
@@ -28,7 +29,11 @@ class Years_summaryController extends Controller
      */
     public function index()
     {
-        $y_summary = Years_summary::all();
+        $y_summary = DB::table('subjects')
+                        ->leftJoin('years_summaries', 'subjects.id', '=', 'years_summaries.subject_id')
+                        ->select('years_summaries.id', 'years_summaries.accountin_year', 'years_summaries.year_subtotal', 'years_summaries.year_sales_tax', 'years_summaries.year_grand_total', 'subjects.subject_name')
+                        ->orderBy('years_summaries.accountin_year', 'desc')
+                        ->get();
         return view('years_summary.index', compact('y_summary'));
     }
 

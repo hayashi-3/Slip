@@ -18,39 +18,38 @@
 
    <ul class="tab-menu">
       @foreach ($y_summary as $ys)
-         <li class="tab-menu__item"><span class="tab-trigger js-tab-trigger" data-id="{{ $ys->id }}">{{ $ys->accountin_period_start }}~{{ $ys->accountin_period_end }}</span></li>
+         <li class="tab-menu__item"><span class="tab-trigger js-tab-trigger" data-id="{{ $ys->id }}">{{ $ys->accountin_year }}</span></li>
       @endforeach
    </ul><!-- .tab-menu -->
 
    <div class="tab-content">
    @foreach ($y_summary as $ys)
-   <div class="tab-content__item js-tab-target" id="{{ $ys->id }}">
-   <table class="table">
-      <thead>
-         <tr>
-            <th scope="col">開始日</th>
-            <th scope="col">終了日</th>
-            <th scope="col">小計</th>
-            <th scope="col">消費税</th>
-            <th scope="col">総計</th>
-         </tr>
-      </thead>
-      <tbody>
-            <tr>
-               <td>{{ $ys->accountin_period_start }}</td>
-               <td>{{ $ys->accountin_period_end }}</td>
-               <td>¥{{ number_format($ys->year_subtotal) }}</td>
-               <td>¥{{ number_format($ys->year_sales_tax) }}</td>
-               <td>¥{{ number_format($ys->year_grand_total) }}</td>
-            </tr>
-      </tbody>
-   </table>
+      <div class="tab-content__item js-tab-target" id="{{ $ys->id }}">
+         <table class="table">
+            <thead>
+               <tr>
+                  <th scope="col">科目</th>
+                  <th scope="col">小計</th>
+                  <th scope="col">消費税</th>
+                  <th scope="col">総計</th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr>
+                  <td>{{ $ys->subject_name }}</td>
+                  <td>¥{{ number_format($ys->year_subtotal) }}</td>
+                  <td>¥{{ number_format($ys->year_sales_tax) }}</td>
+                  <td>¥{{ number_format($ys->year_grand_total) }}</td>
+               </tr>
+            </tbody>
+         </table>
+      </div><!-- .tab-content__item -->
+      @endforeach
+   </div><!-- .tab-content -->
 </div>
-</div><!-- .tab-content__item -->
-@endforeach
-</div><!-- .tab-content -->
+
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {
    $(function () {
       $('[data-toggle="tooltip"]').tooltip()
       })
