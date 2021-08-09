@@ -19,7 +19,7 @@ Route::post('slip/store', 'Slip\SlipController@store')->name('slip.store');
 Route::post('slip/update', 'Slip\SlipController@update')->name('slip.update');
 Route::post('slip/delete/{id}', 'Slip\SlipController@destroy')->name('slip.delete');
 // excel出力
-Route::get('/export', 'Slip\SlipController@export')->name('export');
+Route::get('/export', 'Slip\Years_summaryController@export')->name('export');
 // 科目
 Route::resource('subject', 'Slip\SubjectController')->only(['index', 'create', 'store', 'destroy']);
 Route::post('subject/update/{id}', 'Slip\SubjectController@update')->name('subject.update');

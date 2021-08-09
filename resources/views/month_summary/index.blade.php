@@ -22,7 +22,6 @@
          @endforeach
          </div><!-- .tab-content__item -->
       @endforeach
-   </div><!-- .tab-content -->
 
    <div class="mt-5">
       <canvas id="pieChart"></canvas>
@@ -40,9 +39,9 @@
          for (var i = 0; i < json_slip.length; i++) {
             subtotal.push(json_slip[i].sum);
          }
-         
       </script>
    </div>
 </div>
+</div><!-- .tab-content -->
 
 @endsection
