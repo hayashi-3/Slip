@@ -64,6 +64,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('subject.index') }}">{{ __('科目管理') }}</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('account.index') }}">{{ __('ユーザー管理') }}</a>
+                            </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}さん <span class="caret"></span>

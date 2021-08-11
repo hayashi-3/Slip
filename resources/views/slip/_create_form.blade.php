@@ -28,7 +28,7 @@
                   @foreach($subject as $sb)
                     <option value="{{ $sb->id }}">{{ $sb->subject_name }}</option>
                   @endforeach
-                </select>
+                </select> 
                 <!-- あとでhiddenにする -->
                 <input type="text" class="form-control" id="cal" value="1">
             </div>

@@ -11,7 +11,7 @@
 |
 */
 
-Auth::routes();
+Auth::routes(['register' => false]);
 
 // 経費処理
 Route::get('/', 'Slip\SlipController@index')->name('slip.index');
@@ -31,3 +31,11 @@ Route::get('y_summary', 'Slip\Years_summaryController@index')->name('y_summary.i
 // レシートスキャン
 Route::get('scan_slip', 'Scan\ScanSlipController@index');
 Route::post('scan_slip/extract', 'Scan\ScanSlipController@extract');
+
+// 管理者以上
+Route::group(['middleware' => ['auth', 'can:admin-higher']], function () {
+  // ユーザ管理
+  Route::get('/account', 'Admin\AccountController@index')->name('account.index');
+  Route::post('/account/store', 'Admin\AccountController@store')->name('account.store');
+  Route::post('/account/update', 'Admin\AccountController@update')->name('account.update');
+});
