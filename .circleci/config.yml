@@ -28,7 +28,7 @@ jobs:
 
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "laravel/composer.json" }}
+            - v1-dependencies-{{ checksum "src/composer.json" }}
             - v1-dependencies-
 
       - run:
