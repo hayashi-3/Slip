@@ -28,12 +28,12 @@ jobs:
 
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "laravel/composer.json" }}
+            - v1-dependencies-{{ checksum "src/composer.json" }}
             - v1-dependencies-
 
       - run:
           name: composer install
-          working_directory: laravel
+          working_directory: src
           command: composer install -n --prefer-dist
 
       - save_cache:
