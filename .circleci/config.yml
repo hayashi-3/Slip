@@ -34,7 +34,7 @@ jobs:
       - run:
           name: composer install
           working_directory: ./laravelapp
-          command: composer install --dev --no-interaction --working-dir=src/laravelapp
+          command: composer install --dev --no-interaction --working-dir=laravelapp
 
       - save_cache:
           paths:
