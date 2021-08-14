@@ -33,8 +33,8 @@ jobs:
 
       - run:
           name: composer install
-          working_directory: ../src/laravelapp
-          command: composer install -n --prefer-dist
+          working_directory: ./laravelapp
+          command: composer install --dev --no-interaction --working-dir=src/laravelapp
 
       - save_cache:
           paths:
