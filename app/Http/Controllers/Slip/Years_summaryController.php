@@ -38,6 +38,28 @@ class Years_summaryController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $inputs = $request->all();
+
+        
+
+        \DB::beginTransaction();
+        try {
+            Month_summary::create($y_summaries);
+            \DB::commit();
+        } catch(\Throwable $e) {
+            \DB::rollback();
+            abort(500);
+        }
+        return redirect(route('y_summary.index'))->with('flash_message', '年次決算を確定しました');
+    }
+
+    /**
      * エクセル出力
      *
      */

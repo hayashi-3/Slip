@@ -28,6 +28,7 @@ Route::get('m_summary', 'Slip\Month_summaryController@index')->name('m_summary.i
 Route::post('m_summary/store', 'Slip\Month_summaryController@store')->name('m_summary.store');
 // 年間サマリー
 Route::get('y_summary', 'Slip\Years_summaryController@index')->name('y_summary.index');
+Route::post('y_summary/store', 'Slip\Years_summaryController@store')->name('y_summary.store');
 // レシートスキャン
 Route::get('scan_slip', 'Scan\ScanSlipController@index');
 Route::post('scan_slip/extract', 'Scan\ScanSlipController@extract');

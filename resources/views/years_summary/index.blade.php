@@ -6,13 +6,19 @@
 
    <!-- excelのエクスポート -->
    <div class="row">
-      <div class="col col-10"></div>
-      <div class="col col-2">
-         <a href="{{ route('export') }}">
-            <button class="btn btn-success mr-3" data-toggle="tooltip" title="1年分の明細を出力します" data-placement="top">
-               Excel出力
-            </button>
-         </a>
+      <div class="col col-7"></div>
+      <div class="col col-5">
+        <form>
+          <div>
+            <input type="number" name="year">年度
+            <input type="submit" value="年次決算を確定する">
+          </div>
+        </form>
+        <a href="{{ route('export') }}">
+           <button class="btn btn-success mr-3" data-toggle="tooltip" title="1年分の明細を出力します" data-placement="top">
+             Excel出力
+           </button>
+        </a>
       </div>
    </div>
 
@@ -23,7 +29,7 @@
    </ul><!-- .tab-menu -->
 
    <div class="tab-content">
-   @foreach ($y_summary as $ys)
+      @foreach ($y_summary as $ys)
       <div class="tab-content__item js-tab-target" id="{{ $ys->id }}">
          <table class="table">
             <thead>
@@ -43,8 +49,8 @@
                </tr>
             </tbody>
          </table>
-      </div><!-- .tab-content__item -->
       @endforeach
+      </div><!-- .tab-content__item -->
    </div><!-- .tab-content -->
 </div>
 
