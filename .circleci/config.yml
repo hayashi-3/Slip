@@ -31,11 +31,9 @@ jobs:
             - v1-dependencies-{{ checksum "composer.json" }}
             - v1-dependencies-
 
-      - run: ls
-
       - run:
           name: composer install
-          working_directory: laravelapp
+          working_directory: ./laravelapp
           command: composer install -n --prefer-dist
 
       - save_cache:
