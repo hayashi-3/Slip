@@ -31,6 +31,8 @@ jobs:
             - v1-dependencies-{{ checksum "composer.json" }}
             - v1-dependencies-
 
+      - run: ls
+
       - run:
           name: composer install
           working_directory: laravelapp
@@ -39,7 +41,7 @@ jobs:
       - save_cache:
           paths:
             - ./vendor
-          key: v1-dependencies-{{ checksum "src/laravelapp/composer.json" }}
+          key: v1-dependencies-{{ checksum "composer.json" }}
 
       - run:
           name: Wait for db
