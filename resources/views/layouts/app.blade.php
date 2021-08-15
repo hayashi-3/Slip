@@ -15,6 +15,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
     <script src="{{ asset('js/chart.js') }}" defer></script>
     <script src="{{ asset('js/input.js') }}"></script>
+    <script src="{{ asset('js/subtotalCalc.js') }}"></script>
     <script src="{{ asset('js/deleteAlert.js') }}"></script>
     <script src="{{ asset('js/selectbox.js') }}"></script>
     <script src="{{ asset('js/changeSelectBox.js') }}" defer></script>

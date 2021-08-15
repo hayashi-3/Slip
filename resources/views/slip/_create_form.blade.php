@@ -50,11 +50,12 @@
                 <input type="number" name="accrual_date" class="form-control" id="date">
             </div>
             <div class="form-group">
-                <label for="price">単価</label>
+                <label for="price">単価(実際の小計を入力してください)</label>
                 <input type="number" name="price" class="form-control" id="price">
+                <input type="button" class="subtotal-calc-btn" onclick="subtotalCalc(price.value, calculation.value);" value="計算する">
             </div>
             <div class="form-group">
-              <label for="sb">本体金額</label>
+              <label for="sb">本体金額(設定した掛け率で表示します)</label>
               <input type="number" name="subtotal" class="form-control" id="sb">
             </div>
             <div class="form-group">
