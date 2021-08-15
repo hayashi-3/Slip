@@ -25,12 +25,17 @@
             <div class="form-group">
                 <label for="subject">科目</label>
                 <select name="subject_id" class="form-control" id="subject" onChange="changePulldown();">
+                  <option hidden>選択してください</option>
                   @foreach($subject as $sb)
                     <option value="{{ $sb->id }}">{{ $sb->subject_name }}</option>
                   @endforeach
-                </select> 
-                <!-- あとでhiddenにする -->
-                <input type="text" class="form-control" id="cal" value="1">
+                </select>
+                <label for="calculation">計算</label>
+                <select name="calculation" class="form-control" id="cal">
+                  @foreach($subject as $sb)
+                    <span><option value="{{ $sb->calculation }}" data-id="{{ $sb->id }}">{{ $sb->calculation }}</option></span>
+                  @endforeach
+                </select>
             </div>
             <div class="form-group">
                 <label for="year">年</label>
