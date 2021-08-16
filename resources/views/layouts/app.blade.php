@@ -58,6 +58,9 @@
                             @endif
                         @else
                             <li class="nav-item">
+                                <a class="nav-link" href="{{ route('manual.index') }}">{{ __('マニュアル') }}</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ route('m_summary.index') }}">{{ __('月間仕訳') }}</a>
                             </li>
                             <li class="nav-item">

@@ -33,6 +33,9 @@ class SlipController extends Controller
     {
         $dt_month = new \Carbon\Carbon();
         $dt_month = (int)$dt_month->month;
+
+        $dt_year = new \Carbon\Carbon();
+        $dt_year = (int)$dt_year->year;
        
         // 1ヶ月分のデータを取得
 		$slip = DB::table('slips')->where('accrual_month', $dt_month)->get();
@@ -52,7 +55,7 @@ class SlipController extends Controller
                         ->groupBy('subjects.subject_name')
                         ->get();
         
-        return view('slip.index', compact('slip', 'subject', 'group_slip', 'cash_slip', 'credit_slip', 'gtotal_sl'));
+        return view('slip.index', compact('slip', 'dt_year', 'dt_month', 'subject', 'group_slip', 'cash_slip', 'credit_slip', 'gtotal_sl'));
     }
 
     /**

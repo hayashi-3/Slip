@@ -32,6 +32,8 @@ Route::post('y_summary/store', 'Slip\Years_summaryController@store')->name('y_su
 // レシートスキャン
 Route::get('scan_slip', 'Scan\ScanSlipController@index');
 Route::post('scan_slip/extract', 'Scan\ScanSlipController@extract');
+// マニュアル
+Route::get('manual', 'Manual\ManualController@index')->name('manual.index');
 
 // 管理者以上
 Route::group(['middleware' => ['auth', 'can:admin-higher']], function () {
