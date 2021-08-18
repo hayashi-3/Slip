@@ -11,4 +11,20 @@ class ManualController extends Controller
     {
         return view('manual.index');
     }
+
+    public function slip()
+    {
+        return view('manual.slip');
+    }
+
+    public function month_slip()
+    {
+        return view('manual.month_slip');
+    }
+
+    public function years_slip()
+    {
+        return view('manual.years_slip');
+    }
+
 }

@@ -34,6 +34,10 @@ Route::get('scan_slip', 'Scan\ScanSlipController@index');
 Route::post('scan_slip/extract', 'Scan\ScanSlipController@extract');
 // マニュアル
 Route::get('manual', 'Manual\ManualController@index')->name('manual.index');
+Route::get('manual/slip', 'Manual\ManualController@slip')->name('manual.slip');
+Route::get('manual/m_slip', 'Manual\ManualController@month_slip')->name('manual.m_slip');
+Route::get('manual/y_slip', 'Manual\ManualController@years_slip')->name('manual.y_slip');
+
 
 // 管理者以上
 Route::group(['middleware' => ['auth', 'can:admin-higher']], function () {
