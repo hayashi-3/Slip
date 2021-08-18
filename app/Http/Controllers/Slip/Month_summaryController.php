@@ -43,22 +43,4 @@ class Month_summaryController extends Controller
         return view('month_summary.index', compact('m_summary', 'y_month'));
     }
 
-     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function store()
-    {
-
-        \DB::beginTransaction();
-        try {
-            Month_summary::create($m_summaries);
-            \DB::commit();
-        } catch(\Throwable $e) {
-            \DB::rollback();
-            abort(500);
-        }
-        return redirect(route('m_summary.index'))->with('flash_message', '月間サマリーを登録しました');
-    }
 }

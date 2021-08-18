@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -36,5 +37,14 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    // ログイン条件
+    protected function credentials(Request $request)
+    {
+        $arr = $request->only($this->username(), 'password');
+        $arr['is_active'] = 0;    // 無効フラグOFFの条件を追加
+
+        return $arr;
     }
 }

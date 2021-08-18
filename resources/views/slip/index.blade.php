@@ -81,16 +81,33 @@
                   @endif
 
                   @foreach ($subject as $sb)
-                  @if ($sl->subject_id == $sb->id)
-                     <td>{{ $sb->subject_name }}</td>
-                  @endif
+                     @if ($sl->subject_id == $sb->id)
+                        <td>{{ $sb->subject_name }}</td>
+                     @endif
                   @endforeach
                   <td>{{ $sl->accrual_year }}/{{ $sl->accrual_month }}/{{ $sl->accrual_date }}</td>
-                  <td>¥{{ number_format($sl->price) }}</td>
-                  <td>¥{{ number_format($sl->subtotal) }}</td>
+                  <!-- マイナスは赤字にする -->
+                  @if ($sl->price > 0)
+                    <td>¥{{ number_format($sl->price) }}</td>
+                  @else
+                    <td class="canceled">¥{{ number_format($sl->price) }}</td>
+                  @endif
+                  @if ($sl->subtotal > 0)
+                    <td>¥{{ number_format($sl->subtotal) }}</td>
+                  @else
+                    <td class="canceled">¥{{ number_format($sl->subtotal) }}</td>
+                  @endif
                   <td>{{ $sl->sales_tax_rate }}%</td>
-                  <td>¥{{ number_format($sl->sales_tax) }}</td>
-                  <td>¥{{ number_format($sl->grand_total) }}</td>
+                  @if ($sl->sales_tax > 0)
+                    <td>¥{{ number_format($sl->sales_tax) }}</td>
+                  @else
+                    <td class="canceled">¥{{ number_format($sl->sales_tax) }}</td>
+                  @endif
+                  @if ($sl->grand_total > 0)
+                    <td>¥{{ number_format($sl->grand_total) }}</td>
+                  @else
+                    <td class="canceled">¥{{ number_format($sl->grand_total) }}</td>
+                  @endif                
                   <td>{{ $sl->remarks }}</td>
                   <td><!-- モーダルボタン -->
                      <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target=".edit{{ $sl->id }}">
@@ -215,11 +232,28 @@
                   @endif
                   @endforeach
                   <td>{{ $sl->accrual_year }}/{{ $sl->accrual_month }}/{{ $sl->accrual_date }}</td>
-                  <td>¥{{ number_format($sl->price) }}</td>
-                  <td>¥{{ number_format($sl->subtotal) }}</td>
+                  <!-- マイナスは赤字にする -->
+                  @if ($sl->price > 0)
+                    <td>¥{{ number_format($sl->price) }}</td>
+                  @else
+                    <td class="canceled">¥{{ number_format($sl->price) }}</td>
+                  @endif
+                  @if ($sl->subtotal > 0)
+                    <td>¥{{ number_format($sl->subtotal) }}</td>
+                  @else
+                    <td class="canceled">¥{{ number_format($sl->subtotal) }}</td>
+                  @endif
                   <td>{{ $sl->sales_tax_rate }}%</td>
-                  <td>¥{{ number_format($sl->sales_tax) }}</td>
-                  <td>¥{{ number_format($sl->grand_total) }}</td>
+                  @if ($sl->sales_tax > 0)
+                    <td>¥{{ number_format($sl->sales_tax) }}</td>
+                  @else
+                    <td class="canceled">¥{{ number_format($sl->sales_tax) }}</td>
+                  @endif
+                  @if ($sl->grand_total > 0)
+                    <td>¥{{ number_format($sl->grand_total) }}</td>
+                  @else
+                    <td class="canceled">¥{{ number_format($sl->grand_total) }}</td>
+                  @endif
                   <td>{{ $sl->remarks }}</td>
                </tr>
             @endforeach
@@ -260,11 +294,28 @@
                      @endif
                      @endforeach
                      <td>{{ $sl->accrual_year }}/{{ $sl->accrual_month }}/{{ $sl->accrual_date }}</td>
+                     <!-- マイナスは赤字にする -->
+                     @if ($sl->price > 0)
                      <td>¥{{ number_format($sl->price) }}</td>
+                     @else
+                     <td class="canceled">¥{{ number_format($sl->price) }}</td>
+                     @endif
+                     @if ($sl->subtotal > 0)
                      <td>¥{{ number_format($sl->subtotal) }}</td>
+                     @else
+                     <td class="canceled">¥{{ number_format($sl->subtotal) }}</td>
+                     @endif
                      <td>{{ $sl->sales_tax_rate }}%</td>
+                     @if ($sl->sales_tax > 0)
                      <td>¥{{ number_format($sl->sales_tax) }}</td>
+                     @else
+                     <td class="canceled">¥{{ number_format($sl->sales_tax) }}</td>
+                     @endif
+                     @if ($sl->grand_total > 0)
                      <td>¥{{ number_format($sl->grand_total) }}</td>
+                     @else
+                     <td class="canceled">¥{{ number_format($sl->grand_total) }}</td>
+                     @endif
                      <td>{{ $sl->remarks }}</td>
                   </tr>
                @endforeach
