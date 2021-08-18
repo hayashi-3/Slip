@@ -23,35 +23,40 @@
    </div>
 
    <ul class="tab-menu">
-      @foreach ($y_summary as $ys)
-         <li class="tab-menu__item"><span class="tab-trigger js-tab-trigger" data-id="{{ $ys->id }}">{{ $ys->accountin_year }}</span></li>
+      @foreach ($years as $y)
+      <li class="tab-menu__item"><span class="tab-trigger js-tab-trigger" data-id="{{ $y->accountin_year }}">{{ $y->accountin_year }}年</span></li>
       @endforeach
    </ul><!-- .tab-menu -->
 
    <div class="tab-content">
-      @foreach ($y_summary as $ys)
-      <div class="tab-content__item js-tab-target" id="{{ $ys->id }}">
-         <table class="table">
-            <thead>
-               <tr>
-                  <th scope="col">科目</th>
-                  <th scope="col">小計</th>
-                  <th scope="col">消費税</th>
-                  <th scope="col">総計</th>
-               </tr>
-            </thead>
-            <tbody>
-               <tr>
-                  <td>{{ $ys->subject_name }}</td>
-                  <td>¥{{ number_format($ys->year_subtotal) }}</td>
-                  <td>¥{{ number_format($ys->year_sales_tax) }}</td>
-                  <td>¥{{ number_format($ys->year_grand_total) }}</td>
-               </tr>
-            </tbody>
-         </table>
+      @foreach ($years as $y)
+         <div class="tab-content__item js-tab-target" id="{{ $y->accountin_year }}">
+            <table class="table">
+               <thead>
+                  <tr>
+                     <th scope="col">科目</th>
+                     <th scope="col">小計</th>
+                     <th scope="col">消費税</th>
+                     <th scope="col">総計</th>
+                  </tr>
+               </thead>
+               <tbody>
+               @foreach ($y_summary as $ys)
+                  <tr>
+                  @if ($y->accountin_year === $ys->accountin_year)
+                     <td>{{ $ys->subject_name }}</td>
+                     <td>¥{{ number_format($ys->year_subtotal) }}</td>
+                     <td>¥{{ number_format($ys->year_sales_tax) }}</td>
+                     <td>¥{{ number_format($ys->year_grand_total) }}</td>
+                     @endif
+                  </tr>
+                  @endforeach
+               </tbody>
+            </table>
+         </div><!-- .tab-content__item -->
       @endforeach
-      </div><!-- .tab-content__item -->
    </div><!-- .tab-content -->
+   
 </div>
 
 <script>

@@ -34,7 +34,10 @@ class Years_summaryController extends Controller
                         ->select('years_summaries.id', 'years_summaries.accountin_year', 'years_summaries.year_subtotal', 'years_summaries.year_sales_tax', 'years_summaries.year_grand_total', 'subjects.subject_name')
                         ->orderBy('years_summaries.accountin_year', 'desc')
                         ->get();
-        return view('years_summary.index', compact('y_summary'));
+
+        $years = Years_summary::select('accountin_year')->get();
+
+        return view('years_summary.index', compact('y_summary', 'years'));
     }
 
     /**

@@ -15,7 +15,7 @@
       @foreach ($y_month as $y_m)
          <div class="tab-content__item js-tab-target" id="{{ $y_m }}">
          @foreach ($m_summary as $m_s)
-            @if ($m_s->month == $y_m)
+            @if ($m_s->month === $y_m)
                <p>{{ $m_s->subject_name }}：¥{{ number_format($m_s->sum) }}</p>
                <hr>
             @endif
