@@ -22,11 +22,6 @@
 <div class="container">
 
    <div class="row">
-      <form>
-         @csrf
-         <button type="submit" class="btn btn-outline-success mr-3">伝票を読み取る</button>
-      </form>
-   
       <!-- 新規登録フォーム -->
       @include('slip/_create_form')
 
