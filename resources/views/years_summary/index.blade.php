@@ -8,9 +8,10 @@
    <div class="row">
       <div class="col col-7"></div>
       <div class="col col-5">
-        <form>
+        <form method="post" action="{{ route('y_summary.store') }}">
+          @csrf
           <div>
-            <input type="number" name="year">　年度　
+            <input type="number" name="year" min="2021">　年度　
             <input type="submit" value="年次決算を確定する">
           </div>
         </form>

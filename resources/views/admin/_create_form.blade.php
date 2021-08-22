@@ -27,7 +27,7 @@
             </div>
             <div class="form-group">
                 <label for="password">パスワード</label>
-                <input type="password" name="password" class="form-control" id="password">
+                <input type="password" name="password" class="form-control" id="password" autocomplete="new-password">
             </div>
             <div class="form-group">
                 <label for="confirm_password">パスワード（確認）</label>

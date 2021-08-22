@@ -48,18 +48,29 @@ class Years_summaryController extends Controller
     public function store(Request $request)
     {
         $inputs = $request->all();
+        $year = $inputs['year'];
 
-        
+        $y_subtotal = DB::table('subjects')->leftJoin('slips', 'subjects.id', '=', 'slips.subject_id')->where('slips.accrual_year', $year) ->select('month_summaries.year', 'month_summaries.month', 'subjects.subject_name', DB::raw("sum(month_summaries.monthly_grand_total) as sum"))->groupBy('month_summaries.year', 'month_summaries.month', 'subjects.subject_name')->get();
 
-        \DB::beginTransaction();
-        try {
-            Month_summary::create($y_summaries);
-            \DB::commit();
-        } catch(\Throwable $e) {
-            \DB::rollback();
-            abort(500);
-        }
-        return redirect(route('y_summary.index'))->with('flash_message', '年次決算を確定しました');
+        // \DB::beginTransaction();
+        // try{
+            foreach($y_subtotal as $key => $ys) {
+                Years_summary::create(
+                    ['subject_id' => $ys->id,
+                     'accountin_year' => $ys->accrual_year,
+                     'year_subtotal'=> $ys->year_subtotal,
+                     'year_sales_tax' => $ys->year_sales_tax,
+                     'year_grand_total' => $ys->year_grand_total,
+                     'confirm' => 1
+                    ]
+                );
+            }
+        //     \DB::commit();
+        // } catch(\Throwable $e) { 
+        //     \DB::rollback();
+        //     abort(500);
+        // }
+        return redirect(route('y_summary.index'))->with('flash_message', '年次決算を仮確定しました');
     }
 
     /**

@@ -38,7 +38,6 @@ Route::get('manual/slip', 'Manual\ManualController@slip')->name('manual.slip');
 Route::get('manual/m_slip', 'Manual\ManualController@month_slip')->name('manual.m_slip');
 Route::get('manual/y_slip', 'Manual\ManualController@years_slip')->name('manual.y_slip');
 
-
 // 管理者以上
 Route::group(['middleware' => ['auth', 'can:admin-higher']], function () {
   // ユーザ管理

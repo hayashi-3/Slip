@@ -17,10 +17,11 @@ class YearsSummaries extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('subject_id');
             $table->foreign('subject_id')->references('id')->on('subjects')->onDelete('cascade');
-            $table->integer('accountin_year');
+            $table->integer('accountin_year')->unique();
             $table->integer('year_subtotal');
             $table->double('year_sales_tax');
             $table->integer('year_grand_total');
+            $table->integer('confirm')->default(0);
             $table->timestamps();
         });
     }
