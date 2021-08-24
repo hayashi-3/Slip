@@ -50,26 +50,26 @@ class Years_summaryController extends Controller
         $inputs = $request->all();
         $year = $inputs['year'];
 
-        $y_subtotal = DB::table('subjects')->leftJoin('slips', 'subjects.id', '=', 'slips.subject_id')->where('slips.accrual_year', $year) ->select('month_summaries.year', 'month_summaries.month', 'subjects.subject_name', DB::raw("sum(month_summaries.monthly_grand_total) as sum"))->groupBy('month_summaries.year', 'month_summaries.month', 'subjects.subject_name')->get();
+        $y_subtotal = DB::table('subjects')->leftJoin('slips', 'subjects.id', '=', 'slips.subject_id')->select('subjects.id', DB::raw('sum(slips.subtotal) as subtotal, sum(slips.sales_tax) as sales_tax, sum(slips.grand_total) as grand_total'))->where('slips.accrual_year', $year)->where('slips.annual_confirmation', '0')->groupBy('subjects.id')->get();
 
-        // \DB::beginTransaction();
-        // try{
+        \DB::beginTransaction();
+        try{
             foreach($y_subtotal as $key => $ys) {
                 Years_summary::create(
                     ['subject_id' => $ys->id,
-                     'accountin_year' => $ys->accrual_year,
-                     'year_subtotal'=> $ys->year_subtotal,
-                     'year_sales_tax' => $ys->year_sales_tax,
-                     'year_grand_total' => $ys->year_grand_total,
-                     'confirm' => 1
+                     'accountin_year' => $year,
+                     'year_subtotal'=> $ys->subtotal,
+                     'year_sales_tax' => $ys->sales_tax,
+                     'year_grand_total' => $ys->grand_total,
+                     'confirm' => '1'
                     ]
                 );
             }
-        //     \DB::commit();
-        // } catch(\Throwable $e) { 
-        //     \DB::rollback();
-        //     abort(500);
-        // }
+            \DB::commit();
+        } catch(\Throwable $e) { 
+            \DB::rollback();
+            abort(500);
+        }
         return redirect(route('y_summary.index'))->with('flash_message', '年次決算を仮確定しました');
     }
 

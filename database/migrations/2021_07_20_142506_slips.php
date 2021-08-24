@@ -27,6 +27,7 @@ class Slips extends Migration
             $table->double('sales_tax');
             $table->integer('grand_total');
             $table->string('remarks', 300)->nullable();
+            $table->tinyInteger('annual_confirmation')->default(0);
             $table->timestamps();
         });
     }
