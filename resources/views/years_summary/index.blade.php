@@ -21,7 +21,7 @@
    <div class="row">
       <div class="col col-7"></div>
       <div class="col col-5 mt-3">
-         <form class="form-inline" method="POST" action="{{ route('export') }}">
+         <form class="form-inline" method="GET" action="{{ route('export') }}">
             <div class="form-group ml-4 mr-5">
                <select name="display_year" class="form-select" id="year">
                   <option hidden>選択してください</option>
@@ -40,7 +40,7 @@
 
    <ul class="tab-menu">
       @foreach ($years as $y)
-      <li class="tab-menu__item"><span class="tab-trigger js-tab-trigger" data-id="{{ $y->accountin_year }}">{{ $y->accountin_year }}年</span></li>
+         <li class="tab-menu__item"><span class="tab-trigger js-tab-trigger" data-id="{{ $y->accountin_year }}">{{ $y->accountin_year }}年</span></li>
       @endforeach
    </ul><!-- .tab-menu -->
 
@@ -57,22 +57,23 @@
                   </tr>
                </thead>
                <tbody>
-               @foreach ($y_summary as $ys)
-                  <tr>
-                  @if ($y->accountin_year === $ys->accountin_year)
-                     <td>{{ $ys->subject_name }}</td>
-                     <td>¥{{ number_format($ys->year_subtotal) }}</td>
-                     <td>¥{{ number_format($ys->year_sales_tax) }}</td>
-                     <td>¥{{ number_format($ys->year_grand_total) }}</td>
-                     @endif
-                  </tr>
+                  @foreach ($y_summary as $ys)
+                     <form>
+                        <tr>
+                           @if ($y->accountin_year === $ys->accountin_year)
+                              <td>{{ $ys->subject_name }}</td>
+                              <td>¥{{ number_format($ys->year_subtotal) }}</td>
+                              <td>¥{{ number_format($ys->year_sales_tax) }}</td>
+                              <td>¥{{ number_format($ys->year_grand_total) }}</td>
+                           @endif
+                        </tr>
+                     </form>
                   @endforeach
                </tbody>
             </table>
          </div><!-- .tab-content__item -->
       @endforeach
    </div><!-- .tab-content -->
-   
 </div>
 
 <script>

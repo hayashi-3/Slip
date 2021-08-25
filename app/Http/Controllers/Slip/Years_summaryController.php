@@ -77,9 +77,10 @@ class Years_summaryController extends Controller
      * エクセル出力
      *
      */
-    public function export(){
-        $dt_year = new \Carbon\Carbon();
-        $year = (int)$dt_year->year;
+    public function export(Request $request){
+        $inputs = $request->all();
+        $year = $inputs['display_year'];
+
         return Excel::download(new SlipExport($year), '経費'.date('Ymd').'.xlsx');
     }
 }
