@@ -1,6 +1,27 @@
 @extends('layouts.app')
+@push('js')
+  <script src="{{ asset('js/changeEditForm.js') }}" defer></script>
+@endpush
 
 @section('content')
+<!-- フラッシュメッセージ -->
+@if (session('flash_message'))
+   <div class="alert alert-success">
+      {{ session('flash_message') }}
+   </div>
+@endif
+
+<!-- エラーメッセージ -->
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 <div class="container">
    <h4>年次決算</h4>
 
@@ -49,7 +70,7 @@
    <div class="tab-content">
       @foreach ($years as $y)
          <div class="tab-content__item js-tab-target" id="{{ $y->accountin_year }}">
-            <form class="form-inline ml-4" method="POST" action="{{ route('y_summary.update') }}">
+            <form class="form-inline ml-4 data-edit" method="post" action="{{ route('y_summary.update') }}">
             @csrf
                <table class="table">
                   <thead>
@@ -59,17 +80,19 @@
                         <th scope="col">消費税</th>
                         <th scope="col">総計</th>
                      </tr>
-                  </thead> 
+                  </thead>
                   <!-- 年次確定 -->
                   <tbody>
                      @foreach ($y_summary as $ys)
                         @if ($y->accountin_year === $ys->accountin_year)
                            <tr>
                               <!-- 表示用 -->
-                              <td>{{ $ys->subject_name }}</td>
-                              <td>¥{{ number_format($ys->year_subtotal) }}</td>
-                              <td>¥{{ number_format($ys->year_sales_tax) }}</td>
-                              <td>¥{{ number_format($ys->year_grand_total) }}</td>
+                              <tr>
+                                 <td>{{ $ys->subject_name }}</td>
+                                 <td>¥{{ number_format($ys->year_subtotal) }}</td>
+                                 <td>¥{{ number_format($ys->year_sales_tax) }}</td>
+                                 <td>¥{{ number_format($ys->year_grand_total) }}</td>
+                              </tr>
                               <!-- 更新用 confirmはcontrollerで値をいれる -->
                               <input type="hidden" name="id" value="{{ $ys->id }}">
                               <input type="hidden" name="subject_id" value="{{ $ys->subject_id }}">
@@ -77,7 +100,10 @@
                               <input type="hidden" name="year_subtotal" value="{{ $ys->year_subtotal }}">
                               <input type="hidden" name="year_sales_tax" value="{{ $ys->year_sales_tax }}">
                               <input type="hidden" name="year_grand_total" value="{{ $ys->year_grand_total }}">
-                              <button type="submit" class="btn btn-danger mb-3">年次決算を確定する</button>
+                              @if ($ys->confirm != 2)
+                                 <button type="submit" name="confirm" class="btn btn-danger mb-3">年次決算を確定する</button>
+                                 <button type="submit" name="edit" class="btn btn-outline-primary mb-3 ml-3">年次決算を編集する</button>
+                              @endif
                            </tr>
                         @endif
                      @endforeach

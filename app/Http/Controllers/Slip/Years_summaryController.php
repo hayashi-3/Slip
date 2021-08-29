@@ -31,7 +31,7 @@ class Years_summaryController extends Controller
     {
         $y_summary = DB::table('subjects')
                         ->leftJoin('years_summaries', 'subjects.id', '=', 'years_summaries.subject_id')
-                        ->select('years_summaries.id', 'years_summaries.accountin_year', 'years_summaries.year_subtotal', 'years_summaries.year_sales_tax', 'years_summaries.year_grand_total', 'subjects.id as subject_id', 'subjects.subject_name')
+                        ->select('years_summaries.id', 'years_summaries.accountin_year', 'years_summaries.year_subtotal', 'years_summaries.year_sales_tax', 'years_summaries.year_grand_total', 'years_summaries.confirm', 'subjects.id as subject_id', 'subjects.subject_name')
                         ->orderBy('years_summaries.accountin_year', 'desc')
                         ->get();
 
@@ -77,24 +77,31 @@ class Years_summaryController extends Controller
     {
         $inputs = $request->all();
 
-        // \DB::beginTransaction();
-        // try {
-            $y_summary = Years_summary::find($inputs['id']);
-            $y_summary->fill([
-                'subject_id' => $inputs['subject_id'],
-                'accountin_year' => $inputs['accountin_year'],
-                'year_subtotal' => $inputs['year_subtotal'],
-                'year_sales_tax' => $inputs['year_sales_tax'],
-                'year_grand_total' => $inputs['year_grand_total'],
-                'confirm' => '2',
-            ]);
-            $y_summary->save();
-        //      \DB::commit();
+        if($request->has('edit')){
 
-        // } catch(\Throwable $e) {
-        //     \DB::rollback();
-        //     abort(500);
-        // }
+            
+
+        }elseif($request->has('confirm')){
+
+            \DB::beginTransaction();
+            try {
+                $y_summary = Years_summary::find($inputs['id']);
+                $y_summary->fill([
+                    'subject_id' => $inputs['subject_id'],
+                    'accountin_year' => $inputs['accountin_year'],
+                    'year_subtotal' => $inputs['year_subtotal'],
+                    'year_sales_tax' => $inputs['year_sales_tax'],
+                    'year_grand_total' => $inputs['year_grand_total'],
+                    'confirm' => '2',
+                ]);
+                $y_summary->save();
+                \DB::commit();
+
+            } catch(\Throwable $e) {
+                \DB::rollback();
+                abort(500);
+            }
+        }
         return redirect(route('y_summary.index'))->with('flash_message', '年次決算を確定しました');
     }
 
