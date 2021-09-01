@@ -77,18 +77,18 @@ class Years_summaryController extends Controller
     {
         $inputs = $request->all();
 
-        // 年次決算を編集する editがsubmitされたら
-        if($request->has('edit')){
+        // 年次決算を編集する updateがsubmitされたら
+        if($request->has('update')){
 
             \DB::beginTransaction();
             try {
-                $y_summary = Years_summary::find($inputs['id']);
+                $y_summary = Years_summary::find($inputs['u_id']);
                 $y_summary->fill([
-                    'subject_id' => $inputs['subject_id'],
-                    'accountin_year' => $inputs['accountin_year'],
-                    'year_subtotal' => $inputs['year_subtotal'],
-                    'year_sales_tax' => $inputs['year_sales_tax'],
-                    'year_grand_total' => $inputs['year_grand_total'],
+                    'subject_id' => $inputs['u_subject_id'],
+                    'accountin_year' => $inputs['u_accountin_year'],
+                    'year_subtotal' => $inputs['u_year_subtotal'],
+                    'year_sales_tax' => $inputs['u_year_sales_tax'],
+                    'year_grand_total' => $inputs['u_year_grand_total'],
                     'confirm' => '1',
                 ]);
                 $y_summary->save();
@@ -98,6 +98,7 @@ class Years_summaryController extends Controller
                 \DB::rollback();
                 abort(500);
             }
+            return redirect(route('y_summary.index'))->with('flash_message', '変更しました');
 
         // 年次確定をする confirmがsubmitされたら
         }elseif($request->has('confirm')){

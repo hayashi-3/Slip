@@ -94,18 +94,22 @@
                               <td class="subject_name_value">{{ $ys->subject_name }}</td>
                               <td class="subject_name_change">
                                  <input type="text" name="subject_name" value="{{ $ys->subject_name }}" readonly><br>
-                                 <span>*この項目は編集できません</span>
+                                 <span class="comment">*この項目は編集できません</span>
                               </td>
                               <td class="subtotal_value">¥{{ number_format($ys->year_subtotal) }}</td>
-                              <td class="subtotal_change"><input type="number" name="year_subtotal" value="{{ $ys->year_subtotal }}"></td>
+                              <td class="subtotal_change"><input type="number" name="u_year_subtotal" value="{{ $ys->year_subtotal }}"></td>
                               <td class="sales_tax_value">¥{{ number_format($ys->year_sales_tax) }}</td>
-                              <td class="sales_tax_change"><input type="number" name="year_sales_tax" value="{{ $ys->year_sales_tax }}"></td>
+                              <td class="sales_tax_change"><input type="number" name="u_year_sales_tax" value="{{ $ys->year_sales_tax }}"></td>
                               <td class="grand_total_value">¥{{ number_format($ys->year_grand_total) }}</td>
-                              <td class="grand_total_change"><input type="number" name="year_grand_total" value="{{ $ys->year_grand_total }}"></td>
-                              <td><input type="button" value="編集" class="edit-line"></td>
-                              <td><input type="submit" value="保存" class="save-line"></td>
-                              <td><input type="button" value="×" class="cancel-line"></td>
-                              
+                              <td class="grand_total_change"><input type="number" name="u_year_grand_total" value="{{ $ys->year_grand_total }}"></td>
+                              <input type="hidden" name="u_id" value="{{ $ys->id }}">
+                              <input type="hidden" name="u_subject_id" value="{{ $ys->subject_id }}">
+                              <input type="hidden" name="u_accountin_year" value="{{ $ys->accountin_year }}">
+                              @if ($ys->confirm != 2)
+                                 <td><input type="button" value="編集" class="edit-line"></td>
+                                 <td><input type="submit" name="update" value="保存" class="save-line"></td>
+                                 <td><input type="button" value="×" class="cancel-line"></td>
+                              @endif
                               <!-- 更新用 confirmはcontrollerで値をいれる -->
                               <input type="hidden" name="id" value="{{ $ys->id }}">
                               <input type="hidden" name="subject_id" value="{{ $ys->subject_id }}">
@@ -115,7 +119,6 @@
                               <input type="hidden" name="year_grand_total" value="{{ $ys->year_grand_total }}">
                               @if ($ys->confirm != 2)
                                  <button type="submit" name="confirm" class="btn btn-danger mb-3">年次決算を確定する</button>
-                                 <button type="submit" name="edit" class="btn btn-outline-primary mb-3 ml-3">年次決算を更新する</button>
                               @endif
                            </tr>
                         @endif
