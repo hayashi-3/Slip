@@ -77,10 +77,29 @@ class Years_summaryController extends Controller
     {
         $inputs = $request->all();
 
+        // 年次決算を編集する editがsubmitされたら
         if($request->has('edit')){
 
-            
+            \DB::beginTransaction();
+            try {
+                $y_summary = Years_summary::find($inputs['id']);
+                $y_summary->fill([
+                    'subject_id' => $inputs['subject_id'],
+                    'accountin_year' => $inputs['accountin_year'],
+                    'year_subtotal' => $inputs['year_subtotal'],
+                    'year_sales_tax' => $inputs['year_sales_tax'],
+                    'year_grand_total' => $inputs['year_grand_total'],
+                    'confirm' => '1',
+                ]);
+                $y_summary->save();
+                \DB::commit();
 
+            } catch(\Throwable $e) {
+                \DB::rollback();
+                abort(500);
+            }
+
+        // 年次確定をする confirmがsubmitされたら
         }elseif($request->has('confirm')){
 
             \DB::beginTransaction();
