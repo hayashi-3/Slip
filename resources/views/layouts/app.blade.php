@@ -19,6 +19,7 @@
     <script src="{{ asset('js/deleteAlert.js') }}"></script>
     <script src="{{ asset('js/selectbox.js') }}"></script>
     <script src="{{ asset('js/changeSelectBox.js') }}" defer></script>
+    <script src="{{ asset('js/manualVisibility.js') }}" defer></script>
     @stack('js')
 
     <!-- Fonts -->

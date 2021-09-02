@@ -1,7 +1,8 @@
 @extends('layouts.app')
 @push('js')
   <script src="{{ asset('js/changeEditForm.js') }}" defer></script>
-  <script src="{{ asset('js/addComma.js') }}" defer></script>
+  <script src="{{ asset('js/ySummaryInactiveButton.js') }}" defer></script>
+  <script src="{{ asset('js/inactiveButton.js') }}" defer></script>
 @endpush
 
 @section('content')
@@ -33,10 +34,10 @@
         <form class="form-inline ml-4" method="POST" action="{{ route('y_summary.store') }}">
           @csrf
           <div class="input-group mr-4">
-            <input type="number" name="year" min="2021" id="year">
-            <label for="year">年度</label>
+            <input type="number" name="year" min="2021" id="inp_year">
+            <label for="inp_year">年度</label>
           </div>
-          <input type="submit" class="btn btn-outline-danger" value="年次決算を出力する" data-toggle="tooltip" title="まだ年次決算は確定しません" data-placement="top">
+          <input type="submit" class="btn btn-outline-danger y_output" value="年次決算を出力する" data-toggle="tooltip" title="まだ年次決算は確定しません" data-placement="top">
         </form>
       </div>
    </div>
@@ -47,7 +48,7 @@
       <div class="col col-5 mt-3">
          <form class="form-inline" method="GET" action="{{ route('export') }}">
             <div class="form-group ml-4 mr-5">
-               <select name="display_year" class="form-select" id="year">
+               <select name="display_year" class="form-select select" id="year">
                   <option hidden>選択してください</option>
                   @foreach($years as $y)
                   <option value="{{ $y->accountin_year }}">{{ $y->accountin_year }}</option>
@@ -55,7 +56,7 @@
                </select>
                <label for="year">年度</label>
             </div>
-            <button class="btn btn-outline-success ml-3" data-toggle="tooltip" title="1年分の明細を出力します" data-placement="bottom">
+            <button class="btn btn-outline-success ml-3 excel_btn" data-toggle="tooltip" title="1年分の明細を出力します" data-placement="bottom">
                Excel出力
             </button>
          </form>

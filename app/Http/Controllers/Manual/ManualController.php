@@ -12,6 +12,11 @@ class ManualController extends Controller
         return view('manual.index');
     }
 
+    public function defect()
+    {
+        return view('manual.defect');
+    }
+
     public function slip()
     {
         return view('manual.slip');

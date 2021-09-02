@@ -1,4 +1,5 @@
-@import url(https://fonts.googleapis.com/css?family=Nunito);@charset "UTF-8";
+@charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Nunito);
 
 /*!
  * Bootstrap v4.6.0 (https://getbootstrap.com/)
@@ -120,6 +121,7 @@ address {
 ol,
 ul,
 dl {
+  list-style: none;
   margin-top: 0;
   margin-bottom: 1rem;
 }
@@ -10834,14 +10836,6 @@ a.text-dark:focus {
 
 .text-reset {
   color: inherit !important;
-}
-
-.visible {
-  visibility: visible !important;
-}
-
-.invisible {
-  visibility: hidden !important;
 }
 
 @media print {
