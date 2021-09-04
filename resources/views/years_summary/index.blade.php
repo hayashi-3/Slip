@@ -38,7 +38,7 @@
             <label for="inp_year">年度</label>
           </div>
           <input type="submit" class="btn btn-outline-danger ml-3 y_output" value="年次決算を出力する"
-            data-toggle="tooltip" title="まだ年次決算は確定しません" data-placement="top" >
+            data-toggle="tooltip" title="まだ年次決算は確定しません" data-placement="top" disabled>
         </form>
       </div>
    </div>
