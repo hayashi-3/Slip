@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @push('js')
   <script src="{{ asset('js/changeEditForm.js') }}" defer></script>
-  <script src="{{ asset('js/ySummaryInactiveButton.js') }}" defer></script>
+  <script src="{{ asset('js/yearInactiveButton.js') }}" defer></script>
   <script src="{{ asset('js/inactiveButton.js') }}" defer></script>
 @endpush
 
@@ -37,7 +37,8 @@
             <input type="number" name="year" min="2021" id="inp_year">
             <label for="inp_year">年度</label>
           </div>
-          <input type="submit" class="btn btn-outline-danger y_output" value="年次決算を出力する" data-toggle="tooltip" title="まだ年次決算は確定しません" data-placement="top">
+          <input type="submit" class="btn btn-outline-danger ml-3 y_output" value="年次決算を出力する"
+            data-toggle="tooltip" title="まだ年次決算は確定しません" data-placement="top" >
         </form>
       </div>
    </div>

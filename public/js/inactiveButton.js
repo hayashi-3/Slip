@@ -6,8 +6,8 @@ select.addEventListener('change', function(){
 })
 
 function selectedCheck(){
-  var city = $('select').val();
-  if(city !== "placeholder" ){
+  var year = $('select').val();
+  if(year !== "placeholder" ){
     $(".excel_btn").prop("disabled", false);
   }else{
     $(".excel_btn").prop("disabled", true);

@@ -16,3 +16,11 @@
   background-position: -100% 0;
   color: #fff;
 }
+
+.invisible {
+  display: none;
+}
+
+.pass_text {
+  display: none;
+}
