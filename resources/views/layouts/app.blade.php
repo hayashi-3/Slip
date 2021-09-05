@@ -64,6 +64,9 @@
                                 <a class="nav-link" href="{{ route('manual.index') }}">{{ __('マニュアル') }}</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" href="{{ route('slip.index') }}">{{ __('仕訳入力') }}</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ route('m_summary.index') }}">{{ __('月間仕訳') }}</a>
                             </li>
                             <li class="nav-item">

@@ -4,7 +4,7 @@
 <div class="container">
   <h3>システム不具合かなと思ったら、まずこちらをご確認ください</h3>
   <hr>
-  <a class="chrome">ボタンが表示されない</a><br>
+  <a class="chrome">画面表示がおかしい</a><br>
   <div class="invisible">
     <ul>
       <li>このアプリケーションはブラウザをchromeにして使用することを前提に作成されています。</li>

@@ -26,7 +26,7 @@ class SlipSheet implements FromQuery, WithTitle, WithHeadings, WithStrictNullCom
    */
   public function query()
   {
-      return Slip::query()
+    return Slip::query()
           ->where('accrual_year', $this->year)
           ->where('accrual_month', $this->month);
   }
