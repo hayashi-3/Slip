@@ -37,7 +37,7 @@
             <input type="number" name="year" min="2021" id="inp_year">
             <label for="inp_year">年度</label>
           </div>
-          <input type="submit" class="btn btn-outline-danger ml-3 y_output" value="年次決算を出力する"
+          <input type="submit" class="btn btn-danger ml-3 y_output" value="年次決算を出力する"
             data-toggle="tooltip" title="まだ年次決算は確定しません" data-placement="top" disabled>
         </form>
       </div>
@@ -57,7 +57,7 @@
                </select>
                <label for="year">年度</label>
             </div>
-            <button class="btn btn-outline-success ml-3 excel_btn" data-toggle="tooltip" title="1年分の明細を出力します" data-placement="bottom">
+            <button class="btn btn-success ml-3 excel_btn" data-toggle="tooltip" title="1年分の明細を出力します" data-placement="bottom">
                Excel出力
             </button>
          </form>
