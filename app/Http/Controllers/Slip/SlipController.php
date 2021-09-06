@@ -68,10 +68,25 @@ class SlipController extends Controller
     {
         // バリデーション済みデータの取得
         $inputs = $request->validated();
+      
+        // 日付チェックのために結合したものを分解する
+        list($accual_year, $accual_month, $accual_date) = preg_split('/[-: ]/', $inputs['accrual_year_validation']);
 
         \DB::beginTransaction();
         try {
-            Slip::create($inputs);
+            Slip::create([
+                'subject_id' => $inputs['subject_id'],
+                'is_cash' => $inputs['is_cash'],
+                'accrual_year' => $accual_year,
+                'accrual_month' => $accual_month,
+                'accrual_date' => $accual_date,
+                'price' => $inputs['price'],
+                'subtotal' => $inputs['subtotal'],
+                'sales_tax_rate' => $inputs['sales_tax_rate'],
+                'sales_tax' => $inputs['sales_tax'],
+                'grand_total' => $inputs['grand_total'],
+                'remarks' => $inputs['remarks'],
+            ]);
             \DB::commit();
         } catch(\Throwable $e) {
             \DB::rollback();
