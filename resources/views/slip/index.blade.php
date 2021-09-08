@@ -105,9 +105,13 @@
                   @endif                
                   <td>{{ $sl->remarks }}</td>
                   <td><!-- モーダルボタン -->
+                     @if ($sl->annual_confirmation === 0)
                      <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target=".edit{{ $sl->id }}">
                         伝票編集
                      </button>
+                     @else
+                        年次決算が確定済みの伝票です
+                     @endif
                      <!-- モーダル・伝票登録フォーム -->
                         <div class="modal fade edit{{ $sl->id }}" tabindex="-1" role="dialog" aria-labelledby="#editModal" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -182,10 +186,12 @@
                      </div>
                   </td>
                   <td>
+                  @if ($sl->annual_confirmation === 0)
                      <form method="post" action="{{ route('slip.delete', $sl->id) }}">
                         @csrf
                         <button type="submit" name="delete" class="btn btn-outline-danger" onClick="delete_alert(event);return false;">削除</button>
                      </form>
+                  @endif
                   </td>
                </tr>
 
