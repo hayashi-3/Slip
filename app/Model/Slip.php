@@ -20,6 +20,7 @@ class Slip extends Model
         'sales_tax',
         'grand_total',
         'remarks',
+        'annual_confirmation',
     ];
 
      /**

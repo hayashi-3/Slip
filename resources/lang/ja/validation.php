@@ -21,7 +21,7 @@ return [
     'alpha_dash' => 'The :attribute may only contain letters, numbers, dashes and underscores.',
     'alpha_num' => 'The :attribute may only contain letters and numbers.',
     'array' => 'The :attribute must be an array.',
-    'before' => 'The :attribute must be a date before :date.',
+    'before' => ':attribute は今日より後の日付で入力してください。',
     'before_or_equal' => 'The :attribute must be a date before or equal to :date.',
     'between' => [
         'numeric' => 'The :attribute must be between :min and :max.',
@@ -155,7 +155,8 @@ return [
         'sales_tax_rate' => '消費税率',
         'sales_tax' => '消費税額',
         'grand_total' => '総合計金額',
-        'remarks' => '備考'
+        'remarks' => '備考',
+        'accrual_year_validation' => '発生日'
     ],
 
 ];

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Slip;
 
 use App\Model\Years_summary;
+use App\Model\Slip;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Exports\SlipExport;
@@ -55,7 +56,8 @@ class Years_summaryController extends Controller
         \DB::beginTransaction();
         try{
             foreach($y_subtotal as $key => $ys) {
-                Years_summary::create(
+                Years_summary::updateOrCreate(
+                    ['accountin_year' => $year],
                     ['subject_id' => $ys->id,
                      'accountin_year' => $year,
                      'year_subtotal'=> $ys->subtotal,
@@ -70,7 +72,7 @@ class Years_summaryController extends Controller
             \DB::rollback();
             abort(500);
         }
-        return redirect(route('y_summary.index'))->with('flash_message', '年次決算を仮確定しました');
+        return redirect(route('y_summary.index'))->with('flash_message', '年次決算を出力しました');
     }
 
     public function update(Request $request)
@@ -115,8 +117,17 @@ class Years_summaryController extends Controller
                     'confirm' => '2',
                 ]);
                 $y_summary->save();
-                \DB::commit();
 
+                $y_slip = Slip::where('accrual_year', $inputs['accountin_year'])->get();
+                foreach($y_slip as $key => $yslip) {
+                    $u_yslip = Slip::find($yslip->id);
+                    $u_yslip->fill([
+                        'annual_confirmation' => '1',
+                    ]);
+                    $u_yslip->save();
+                }
+
+                \DB::commit();
             } catch(\Throwable $e) {
                 \DB::rollback();
                 abort(500);

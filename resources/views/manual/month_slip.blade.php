@@ -12,5 +12,8 @@
         <li>科目別の金額管理としてご利用ください。</li>
       </ul>
     </div>
+    <div>
+      <a href="{{ route('manual.index') }}">マニュアル一覧へ戻る</a>
+    </div>
   </div>
 @endsection

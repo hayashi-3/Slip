@@ -19,5 +19,8 @@
       <li>ログイン画面の「パスワードをお忘れですか？」のリンクからパスワードを再設定してください。</li>
     </ul>
   </div>
+  <div>
+    <a href="{{ route('manual.index') }}">マニュアル一覧へ戻る</a>
+  </div>
 </div>
 @endsection
