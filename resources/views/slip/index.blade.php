@@ -104,13 +104,16 @@
                     <td class="canceled">¥{{ number_format($sl->grand_total) }}</td>
                   @endif                
                   <td>{{ $sl->remarks }}</td>
-                  <td><!-- モーダルボタン -->
                      @if ($sl->annual_confirmation === 0)
-                     <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target=".edit{{ $sl->id }}">
-                        伝票編集
-                     </button>
+                     <td><!-- モーダルボタン -->
+                        <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target=".edit{{ $sl->id }}">
+                           伝票編集
+                        </button>
+                     </td>
                      @else
-                        年次決算が確定済みの伝票です
+                     <td>
+                        年次決算確定済み
+                     </td>
                      @endif
                      <!-- モーダル・伝票登録フォーム -->
                         <div class="modal fade edit{{ $sl->id }}" tabindex="-1" role="dialog" aria-labelledby="#editModal" aria-hidden="true">
@@ -184,7 +187,6 @@
                            </div>
                         </div>
                      </div>
-                  </td>
                   <td>
                   @if ($sl->annual_confirmation === 0)
                      <form method="post" action="{{ route('slip.delete', $sl->id) }}">

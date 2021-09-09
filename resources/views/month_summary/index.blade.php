@@ -13,14 +13,18 @@
 
    <div class="tab-content">
       @foreach ($y_month as $y_m)
-         <div class="tab-content__item js-tab-target" id="{{ $y_m }}">
-         @foreach ($m_summary as $m_s)
-            @if ($m_s->month === $y_m)
-               <p>{{ $m_s->subject_name }}：¥{{ number_format($m_s->sum) }}</p>
-               <hr>
-            @endif
-         @endforeach
-         </div><!-- .tab-content__item -->
+      <div class="tab-content__item js-tab-target" id="{{ $y_m }}">
+         <table class="table">
+            <tr class="data-edit">
+               @foreach ($m_summary as $m_s)
+                  @if ($m_s->month === $y_m)
+                     <td>{{ $m_s->subject_name }}：¥{{ number_format($m_s->sum) }}</td>
+                     <td><a href="m_summary/{{ $m_s->year }}/{{ $m_s->month }}">詳細</a></td>
+                  @endif
+               @endforeach
+            </tr>
+         </table>
+      </div><!-- .tab-content__item -->
       @endforeach
    </div><!-- .tab-content -->
 </div>

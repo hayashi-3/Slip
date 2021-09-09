@@ -43,4 +43,8 @@ class Month_summaryController extends Controller
         return view('month_summary.index', compact('m_summary', 'y_month'));
     }
 
+    public function show($year, $month) {
+        return view('month_summary.show');
+    }
+
 }

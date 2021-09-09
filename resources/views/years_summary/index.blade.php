@@ -52,7 +52,7 @@
                <select name="display_year" class="form-select select" id="year">
                   <option hidden>選択してください</option>
                   @foreach($years as $y)
-                  <option value="{{ $y->accountin_year }}">{{ $y->accountin_year }}</option>
+                    <option value="{{ $y->accountin_year }}">{{ $y->accountin_year }}</option>
                   @endforeach
                </select>
                <label for="year">年度</label>
