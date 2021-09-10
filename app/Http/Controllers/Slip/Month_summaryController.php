@@ -44,7 +44,12 @@ class Month_summaryController extends Controller
     }
 
     public function show($year, $month) {
-        return view('month_summary.show');
+        $m_summary_slip = DB::table('subjects')
+                            ->leftJoin('slips', 'subjects.id', '=', 'slips.subject_id')
+                            ->where('slips.accrual_year', $year)
+                            ->where('slips.accrual_month', $month)
+                            ->get();
+        return view('month_summary.show', compact('m_summary_slip'));
     }
 
 }
