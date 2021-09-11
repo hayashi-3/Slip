@@ -52,4 +52,8 @@ class Month_summaryController extends Controller
         return view('month_summary.show', compact('m_summary_slip'));
     }
 
+    public function update(Request $request)
+    {
+
+    }
 }
