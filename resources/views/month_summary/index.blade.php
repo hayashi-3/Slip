@@ -18,8 +18,9 @@
             <tr class="data-edit">
                @foreach ($m_summary as $m_s)
                   @if ($m_s->month === $y_m)
-                     <td>{{ $m_s->subject_name }}：¥{{ number_format($m_s->sum) }}</td>
-                     <td><a href="m_summary/{{ $m_s->year }}/{{ $m_s->month }}">詳細</a></td>
+                     <td>{{ $m_s->subject_name }}：¥{{ number_format($m_s->sum) }}
+                        <a href="m_summary/{{ $m_s->year }}/{{ $m_s->month }}">詳細</a>
+                     </td>
                   @endif
                @endforeach
             </tr>

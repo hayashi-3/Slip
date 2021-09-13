@@ -48,7 +48,7 @@ class Month_summaryController extends Controller
                             ->leftJoin('slips', 'subjects.id', '=', 'slips.subject_id')
                             ->where('slips.accrual_year', $year)
                             ->where('slips.accrual_month', $month)
-                            ->paginate(1);
+                            ->paginate(30);
         return view('month_summary.show', compact('m_summary_slip'));
     }
 

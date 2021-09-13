@@ -94,7 +94,7 @@
           @else
             <td class="canceled grand_total_value">¥{{ number_format($ms_slip->grand_total) }}</td>
             <td class="canceled grand_total_change"><input type="number" class="ajast" value="{{ $ms_slip->grand_total }}"></td>
-          @endif                
+          @endif
           <td class="remarks_value">{{ $ms_slip->remarks }}</td>
           <td class="remarks_change"><input type="text" class="ajast" value="{{ $ms_slip->remarks }}"></td>
           @if ($ms_slip->annual_confirmation === 0)
