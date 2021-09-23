@@ -25,7 +25,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('month_summary:insert')
-                 ->everyMinute();
+                 ->everyMinute()
+                 ->sendOutputTo(storage_path('logs/cron.log'));
     }
 
     /**
