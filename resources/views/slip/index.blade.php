@@ -127,8 +127,8 @@
                               </div>
                               <div class="modal-body">
                                  <form method="post" action="{{ route('slip.update') }}">
-                                 @csrf
-                                    <input type="hidden" name="id" value="{{ $sl->id}}">
+                                    @csrf
+                                    <input type="hidden" name="id" value="{{ $sl->id }}">
                                     <div class="form-check">
                                        <input type="hidden" name="is_cash" class="form-check-input" id="is_cash" value="0">
                                        <input type="checkbox" name="is_cash" class="form-check-input" id="is_cash" value="1" @if ($sl->is_cash == 1) checked @endif>
@@ -178,11 +178,11 @@
                                        <label for="rmark">備考</label>
                                        <input type="text" name="remarks" class="form-control rmark" value="{{ $sl->remarks }}">
                                     </div>
-                                    <button type="submit" class="btn btn-primary btn-lg btn-block">更新する</button>
+                                    <button type="submit" name="s_update" class="btn btn-primary btn-lg btn-block">更新する</button>
                                  </form>
                               </div>
                               <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
                               </div>
                            </div>
                         </div>

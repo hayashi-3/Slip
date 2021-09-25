@@ -43,17 +43,13 @@ class Month_summaryController extends Controller
         return view('month_summary.index', compact('m_summary', 'y_month'));
     }
 
-    public function show($year, $month) {
+    public function show($year, $month, $subject_name) {
         $m_summary_slip = DB::table('subjects')
                             ->leftJoin('slips', 'subjects.id', '=', 'slips.subject_id')
                             ->where('slips.accrual_year', $year)
                             ->where('slips.accrual_month', $month)
+                            ->where('subjects.subject_name', $subject_name)
                             ->paginate(30);
         return view('month_summary.show', compact('m_summary_slip'));
-    }
-
-    public function update(Request $request)
-    {
-
     }
 }

@@ -25,8 +25,7 @@
   <div class="ml-5">
     <h4>月間詳細</h4>
   </div>
-  <form class="form-inline ml-4 data-edit" method="post" action="{{ route('m_summary.update') }}">
-  @csrf
+
   <table class="table">
     <thead>
       <tr>
@@ -46,9 +45,12 @@
         <th scope="col">削除</th>
       </tr>
     </thead>
+
     <tbody>
       @foreach($m_summary_slip as $ms_slip)
         <tr class="data-edit">
+        <form class="form-inline ml-4 data-edit" method="post" action="{{ route('slip.update') }}">
+          @csrf
           <td class="id_value"></td>
           <td class="id_change"><input type="hidden" name="id" value="{{ $ms_slip->id }}"></td>
           @if ($ms_slip->is_cash === 0)
@@ -99,11 +101,11 @@
           <td class="remarks_change"><input type="text" class="ajast" value="{{ $ms_slip->remarks }}"></td>
           @if ($ms_slip->annual_confirmation === 0)
             <td class="ajast_td"><input type="button" value="編集" class="btn btn-info btn-sm edit-line"></td>
-            <td class="ajast_td"><input type="submit" value="保存" class="btn btn-info btn-sm save-line"></td>
+            <td class="ajast_td"><input type="submit" name="m_show_update" value="保存" class="btn btn-info btn-sm save-line"></td>
             <td class="ajast_td"><input type="button" value="×" class="btn btn-secondary btn-sm cancel-line"></td>
             <td class="ajast_td"><input type="button" class="btn btn-outline-danger btn-sm" value="削除"></td>
           @endif
-      </tr>
+        </tr>
       @endforeach
     </tbody>
   </table>

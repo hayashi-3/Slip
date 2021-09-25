@@ -23,7 +23,7 @@ Route::group(['middleware' => ['auth']], function () {
   // 月間サマリー
   Route::get('m_summary', 'Slip\Month_summaryController@index')->name('m_summary.index');
   Route::post('m_summary/store', 'Slip\Month_summaryController@store')->name('m_summary.store');
-  Route::get('m_summary/{year}/{month}', 'Slip\Month_summaryController@show')->name('m_summary.show');
+  Route::get('m_summary/{year}/{month}/{subject_name}', 'Slip\Month_summaryController@show')->name('m_summary.show');
   Route::post('m_summary/update', 'Slip\Month_summaryController@update')->name('m_summary.update');
   // 年間サマリー
   Route::get('y_summary', 'Slip\Years_summaryController@index')->name('y_summary.index');

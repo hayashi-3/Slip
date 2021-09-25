@@ -38,11 +38,11 @@ class SlipController extends Controller
         $dt_year = (int)$dt_year->year;
        
         // 1ヶ月分のデータを取得
-		$slip = DB::table('slips')->where('accrual_month', $dt_month)->get();
+		$slip = DB::table('slips')->where('accrual_month', $dt_month)->orderBy('accrual_date', 'asc')->get();
         // 現金支出分
-        $cash_slip = Slip::where('accrual_month', $dt_month)->where('is_cash', 0)->get();
+        $cash_slip = Slip::where('accrual_month', $dt_month)->where('is_cash', 0)->orderBy('accrual_date', 'asc')->get();
         // クレジットカード支出分
-        $credit_slip = Slip::where('accrual_month', $dt_month)->where('is_cash', 1)->get();
+        $credit_slip = Slip::where('accrual_month', $dt_month)->where('is_cash', 1)->orderBy('accrual_date', 'asc')->get();
 
         // 1ヶ月分の支出
         $gtotal_sl = Slip::where('accrual_month', $dt_month)->sum('grand_total');
@@ -103,33 +103,71 @@ class SlipController extends Controller
      */
     public function update(StoreSlipPost $request)
     {
-        // バリデーション済みデータの取得
-        $inputs = $request->all();
 
-        \DB::beginTransaction();
-        try {
-            $slip = Slip::find($inputs['id']);
-            $slip->fill([
-            'subject_id' => $inputs['subject_id'],
-            'is_cash' => $inputs['is_cash'],
-            'accrual_year' => $inputs['accrual_year'],
-            'accrual_month' => $inputs['accrual_month'],
-            'accrual_date' => $inputs['accrual_date'],
-            'price' => $inputs['price'],
-            'subtotal' => $inputs['subtotal'],
-            'sales_tax_rate' => $inputs['sales_tax_rate'],
-            'sales_tax' => $inputs['sales_tax'],
-            'grand_total' => $inputs['grand_total'],
-            'remarks' => $inputs['remarks'],
-            ]);
+        // month_summaryのshowページにてslipの更新をする場合
+        if($request->has('m_show_update')) {
+
+            // バリデーション済みデータの取得
+            $inputs = $request->all();
+
+            $date = $inputs->implode('accrual_year', '/');
+            dd($date);
+           
+            \DB::beginTransaction();
+            try {
+                $slip = Slip::find($inputs['id']);
+                $slip->fill([
+                'subject_id' => $inputs['subject_id'],
+                'is_cash' => $inputs['is_cash'],
+                'accrual_year' => $inputs['accrual_year'],
+                'accrual_month' => $inputs['accrual_month'],
+                'accrual_date' => $inputs['accrual_date'],
+                'price' => $inputs['price'],
+                'subtotal' => $inputs['subtotal'],
+                'sales_tax_rate' => $inputs['sales_tax_rate'],
+                'sales_tax' => $inputs['sales_tax'],
+                'grand_total' => $inputs['grand_total'],
+                'remarks' => $inputs['remarks'],
+                ]);
             $slip->save();
-             \DB::commit();
+            \DB::commit();
 
-        } catch(\Throwable $e) {
-            \DB::rollback();
-            abort(500);
+            } catch(\Throwable $e) {
+                \DB::rollback();
+                abort(500);
+            }
+            return redirect(route('month_summary.show'))->with('flash_message', '更新しました');
+        
+        }elseif($request->has('s_update')){
+
+            // バリデーション済みデータの取得
+            $inputs = $request->all();
+           
+            \DB::beginTransaction();
+            try {
+                $slip = Slip::find($inputs['id']);
+                $slip->fill([
+                'subject_id' => $inputs['subject_id'],
+                'is_cash' => $inputs['is_cash'],
+                'accrual_year' => $inputs['accrual_year'],
+                'accrual_month' => $inputs['accrual_month'],
+                'accrual_date' => $inputs['accrual_date'],
+                'price' => $inputs['price'],
+                'subtotal' => $inputs['subtotal'],
+                'sales_tax_rate' => $inputs['sales_tax_rate'],
+                'sales_tax' => $inputs['sales_tax'],
+                'grand_total' => $inputs['grand_total'],
+                'remarks' => $inputs['remarks'],
+                ]);
+                $slip->save();
+                \DB::commit();
+
+            } catch(\Throwable $e) {
+                \DB::rollback();
+                abort(500);
+            }
+            return redirect(route('slip.index'))->with('flash_message', '登録しました');
         }
-        return redirect(route('slip.index'))->with('flash_message', '登録しました');
     }
 
     /**

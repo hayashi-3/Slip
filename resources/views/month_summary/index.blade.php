@@ -15,15 +15,15 @@
       @foreach ($y_month as $y_m)
       <div class="tab-content__item js-tab-target" id="{{ $y_m }}">
          <table class="table">
-            <tr class="data-edit">
-               @foreach ($m_summary as $m_s)
-                  @if ($m_s->month === $y_m)
+            @foreach ($m_summary as $m_s)
+               @if ($m_s->month === $y_m)
+                  <tr>
                      <td>{{ $m_s->subject_name }}：¥{{ number_format($m_s->sum) }}
-                        <a href="m_summary/{{ $m_s->year }}/{{ $m_s->month }}">詳細</a>
+                        <a href="m_summary/{{ $m_s->year }}/{{ $m_s->month }}/{{ $m_s->subject_name }}">詳細</a>
                      </td>
-                  @endif
-               @endforeach
-            </tr>
+                  </tr>
+               @endif
+            @endforeach
          </table>
       </div><!-- .tab-content__item -->
       @endforeach
