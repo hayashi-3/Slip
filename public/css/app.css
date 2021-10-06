@@ -11013,3 +11013,7 @@ a.text-dark:focus {
   }
 }
 
+li {
+  list-style: none;
+}
+

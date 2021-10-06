@@ -84,7 +84,7 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                              <ul>
+                              <ul style="list-style:none">
                                 <li>1. ブラウザはchromeですか？</li>
                                 <li>2. ログインIDとパスワードは合っていますか？</li>
                                 <li>3. 「パスワードをお忘れですか？」のリンクからメールアドレスを入力し、パスワードリセットを行ってください。</li>
