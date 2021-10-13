@@ -103,72 +103,35 @@ class SlipController extends Controller
      */
     public function update(StoreSlipPost $request)
     {
-
-        // // month_summaryのshowページにてslipの更新をする場合
-        // if($request->has('m_show_update')) {
-
-            // バリデーション済みデータの取得
-            $inputs = $request->all();
-
-        //     $date = $inputs->implode('accrual_year', '/');
-        //     dd($date);
-           
-        //     \DB::beginTransaction();
-        //     try {
-        //         $slip = Slip::find($inputs['id']);
-        //         $slip->fill([
-        //         'subject_id' => $inputs['subject_id'],
-        //         'is_cash' => $inputs['is_cash'],
-        //         'accrual_year' => $inputs['accrual_year'],
-        //         'accrual_month' => $inputs['accrual_month'],
-        //         'accrual_date' => $inputs['accrual_date'],
-        //         'price' => $inputs['price'],
-        //         'subtotal' => $inputs['subtotal'],
-        //         'sales_tax_rate' => $inputs['sales_tax_rate'],
-        //         'sales_tax' => $inputs['sales_tax'],
-        //         'grand_total' => $inputs['grand_total'],
-        //         'remarks' => $inputs['remarks'],
-        //         ]);
-        //     $slip->save();
-        //     \DB::commit();
-
-        //     } catch(\Throwable $e) {
-        //         \DB::rollback();
-        //         abort(500);
-        //     }
-        //     return redirect(route('month_summary.show'))->with('flash_message', '更新しました');
+        // バリデーション済みデータの取得
+        $inputs = $request->all();
         
-        // }elseif($request->has('s_update')){
+        \DB::beginTransaction();
+        try {
+            $slip = Slip::find($inputs['id']);
+            $slip->fill([
+            'subject_id' => $inputs['subject_id'],
+            'is_cash' => $inputs['is_cash'],
+            'accrual_year' => $inputs['accrual_year'],
+            'accrual_month' => $inputs['accrual_month'],
+            'accrual_date' => $inputs['accrual_date'],
+            'price' => $inputs['price'],
+            'subtotal' => $inputs['subtotal'],
+            'sales_tax_rate' => $inputs['sales_tax_rate'],
+            'sales_tax' => $inputs['sales_tax'],
+            'grand_total' => $inputs['grand_total'],
+            'remarks' => $inputs['remarks'],
+            ]);
+            $slip->save();
+            \DB::commit();
 
-        //     // バリデーション済みデータの取得
-        //     $inputs = $request->all();
-           
-            \DB::beginTransaction();
-            try {
-                $slip = Slip::find($inputs['id']);
-                $slip->fill([
-                'subject_id' => $inputs['subject_id'],
-                'is_cash' => $inputs['is_cash'],
-                'accrual_year' => $inputs['accrual_year'],
-                'accrual_month' => $inputs['accrual_month'],
-                'accrual_date' => $inputs['accrual_date'],
-                'price' => $inputs['price'],
-                'subtotal' => $inputs['subtotal'],
-                'sales_tax_rate' => $inputs['sales_tax_rate'],
-                'sales_tax' => $inputs['sales_tax'],
-                'grand_total' => $inputs['grand_total'],
-                'remarks' => $inputs['remarks'],
-                ]);
-                $slip->save();
-                \DB::commit();
-
-            } catch(\Throwable $e) {
-                \DB::rollback();
-                abort(500);
-            }
-            return redirect(route('slip.index'))->with('flash_message', '登録しました');
+        } catch(\Throwable $e) {
+            \DB::rollback();
+            abort(500);
         }
-    // }
+        return redirect(route('slip.index'))->with('flash_message', '登録しました');
+    }
+
 
     /**
      * 削除

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Slip;
 
 use App\Model\Month_summary;
+use App\Model\Slip;
+use App\Model\Subject;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -50,6 +52,48 @@ class Month_summaryController extends Controller
                             ->where('slips.accrual_month', $month)
                             ->where('subjects.subject_name', $subject_name)
                             ->paginate(30);
-        return view('month_summary.show', compact('m_summary_slip'));
+        
+        // セレクトボックスの科目
+        $subject = Subject::all();
+
+        return view('month_summary.show', compact('m_summary_slip', 'subject'));
+    }
+
+    public function update(Request $request) {
+        
+        $inputs = $request->all();
+        dd($inputs);
+
+        $subject = Subject::find($inputs['subject_id']);
+        $subject_name = $subject->subject_name;
+       
+        $accrual_year = $inputs['accrual_year'];
+        list($year, $month, $date) = explode('/', $accrual_year);
+        dd($date);
+        
+        // \DB::beginTransaction();
+        // try {
+            $slip = Slip::find($inputs['id']);
+            $slip->fill([
+            'subject_id' => $inputs['subject_id'],
+            'is_cash' => $inputs['is_cash'],
+            'accrual_year' => $year,
+            'accrual_month' => $month,
+            'accrual_date' => $date,
+            'price' => $inputs['price'],
+            'subtotal' => $inputs['subtotal'],
+            'sales_tax_rate' => $inputs['sales_tax_rate'],
+            'sales_tax' => $inputs['sales_tax'],
+            'grand_total' => $inputs['grand_total'],
+            'remarks' => $inputs['remarks'],
+            ]);
+        // $slip->save();
+        // \DB::commit();
+
+        // } catch(\Throwable $e) {
+        //     \DB::rollback();
+        //     abort(500);
+        // }
+        return redirect(route('m_summary.show', ['year' => $year, 'month' => $month, 'subject_name' => $subject_name]))->with('flash_message', '更新しました');
     }
 }

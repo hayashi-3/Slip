@@ -61,7 +61,7 @@
                   <label for="rmark">備考</label>
                   <input type="text" name="remarks" class="form-control rmark" value="{{ $sl->remarks }}">
               </div>
-              <button type="submit" class="btn btn-primary btn-lg btn-block">更新する</button>
+              <button type="submit" name="s_update" class="btn btn-primary btn-lg btn-block">更新する</button>
             </form>
         </div>
         <div class="modal-footer">
