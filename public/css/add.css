@@ -25,14 +25,23 @@
   display: none;
 }
 
+li {
+  list-style: none;
+}
+
+.parent-row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.c-row {
+  margin: 5px 5px 0 0;
+}
+
 .ajast {
   width: 100px;
 }
 
-.ajast_div {
-  width: 45px;
-}
-
-li {
-  list-style: none;
+.ajast-narrow {
+  width: 50px;
 }
