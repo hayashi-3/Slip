@@ -22,11 +22,8 @@
       </div>
   @endif
 
-  <div class="ml-5">
-    <h4>月間詳細</h4>
-  </div>
-
   <div class="container">
+    <h4>月間詳細</h4>
     <div class="parent-row">
       <div class="c-row ajast">支払方法</div>
       <div class="c-row ajast-middle">科目名</div>

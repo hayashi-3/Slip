@@ -1,10 +1,14 @@
+<!-- 削除フォーム -->
+<form method="post" id="delete_form" action="{{ route('slip.delete', $ms_slip->id) }}">
+  @csrf
+</form>
 
 <form class="form-inline" method="post" action="{{ route('m_summary.update') }}">
   @csrf
   <div class="id_change">
     <input type="hidden" name="id" value="{{ $ms_slip->id }}">
   </div>
- 
+
     @if ($ms_slip->is_cash === 0)
       <div class="is_cash_value">
         <div class="c-row ajast">現金</div>
@@ -77,7 +81,7 @@
     @endif
 
       <div class="sales_tax_rate_value">
-        <div class="c-row ajast-middle">{{ $ms_slip->sales_tax_rate }}%</div>
+        <div class="c-row ajast-">{{ $ms_slip->sales_tax_rate }}%</div>
       </div>
       <div class="sales_tax_rate_change"><input type="number" class="c-row ajast-middle" name="sales_tax_rate" value="{{ $ms_slip->sales_tax_rate }}">%</div>
     @if ($ms_slip->sales_tax > 0)
@@ -124,6 +128,8 @@
     <div class="c-row ajast-narrow"><input type="button" value="編集" class="btn btn-info btn-sm edit-line"></div>
     <div class="c-row ajast-narrow"><input type="submit" value="保存" class="btn btn-info btn-sm save-line"></div>
     <div class="c-row ajast-narrow"><input type="button" value="×" class="btn btn-secondary btn-sm cancel-line"></div>
-    <div class="c-row ajast-narrow"><input type="button" class="btn btn-outline-danger btn-sm" value="削除"></div>
+    <div class="c-row ajast-narrow">
+      <button type="submit" name="delete" class="btn btn-sm btn-outline-danger" form="delete_form" onClick="delete_alert(event);return false;">削除</button>
+    </div>
   @endif
 </form>

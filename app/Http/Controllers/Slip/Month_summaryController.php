@@ -51,6 +51,7 @@ class Month_summaryController extends Controller
                             ->where('slips.accrual_year', $year)
                             ->where('slips.accrual_month', $month)
                             ->where('subjects.subject_name', $subject_name)
+                            ->orderBy('slips.accrual_date', 'asc')
                             ->paginate(30);
         
         // セレクトボックスの科目
