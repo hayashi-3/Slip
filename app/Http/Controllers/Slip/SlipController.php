@@ -141,14 +141,29 @@ class SlipController extends Controller
      */
     public function destroy($id)
     {
-        if (empty($id)) {
-            return redirect(route('slip.index'))->with('flash_message', 'データがありません');
+        // 遷移元URLで振り分ける
+        $before_url = $_SERVER['HTTP_REFERER'];
+        
+        if (preg_match("/m_summary/", $before_url)){
+            if (empty($id)) {
+                return redirect(route('m_summary.index'))->with('flash_message', 'データがありません');
+            }
+            try{
+                $slip = Slip::destroy($id);
+            } catch(\Throwable $e) {
+                abort(500);
+            }
+            return redirect(route('m_summary.index'))->with('flash_message', '削除しました');
+        }elseif(preg_match("/slip/", $before_url)){ 
+            if (empty($id)) {
+                return redirect(route('slip.index'))->with('flash_message', 'データがありません');
+            }
+            try{
+                $slip = Slip::destroy($id);
+            } catch(\Throwable $e) {
+                abort(500);
+            }
+            return redirect(route('slip.index'))->with('flash_message', '削除しました');
         }
-        try{
-        $slip = Slip::destroy($id);
-        } catch(\Throwable $e) {
-            abort(500);
-        }
-        return redirect(route('slip.index'))->with('flash_message', '削除しました');
     }
 }
