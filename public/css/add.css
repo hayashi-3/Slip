@@ -35,13 +35,18 @@ li {
 }
 
 .c-row {
-  margin: 5px 5px 0 0;
+  margin: 5px 4px 0 0;
 }
 
 .ajast {
   width: 100px;
 }
 
+.ajast-middle{
+  width: 70px;
+}
+
 .ajast-narrow {
   width: 50px;
+  margin-right: 2px;
 }

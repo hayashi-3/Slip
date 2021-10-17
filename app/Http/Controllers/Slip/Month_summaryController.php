@@ -62,17 +62,15 @@ class Month_summaryController extends Controller
     public function update(Request $request) {
         
         $inputs = $request->all();
-        dd($inputs);
 
         $subject = Subject::find($inputs['subject_id']);
         $subject_name = $subject->subject_name;
        
         $accrual_year = $inputs['accrual_year'];
         list($year, $month, $date) = explode('/', $accrual_year);
-        dd($date);
         
-        // \DB::beginTransaction();
-        // try {
+        \DB::beginTransaction();
+        try {
             $slip = Slip::find($inputs['id']);
             $slip->fill([
             'subject_id' => $inputs['subject_id'],
@@ -87,13 +85,13 @@ class Month_summaryController extends Controller
             'grand_total' => $inputs['grand_total'],
             'remarks' => $inputs['remarks'],
             ]);
-        // $slip->save();
-        // \DB::commit();
+        $slip->save();
+        \DB::commit();
 
-        // } catch(\Throwable $e) {
-        //     \DB::rollback();
-        //     abort(500);
-        // }
+        } catch(\Throwable $e) {
+            \DB::rollback();
+            abort(500);
+        }
         return redirect(route('m_summary.show', ['year' => $year, 'month' => $month, 'subject_name' => $subject_name]))->with('flash_message', '更新しました');
     }
 }
