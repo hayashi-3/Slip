@@ -132,7 +132,6 @@ class SlipController extends Controller
         return redirect(route('slip.index'))->with('flash_message', '登録しました');
     }
 
-
     /**
      * 削除
      *
@@ -141,24 +140,25 @@ class SlipController extends Controller
      */
     public function destroy($id)
     {
-        // 遷移元URLで振り分ける
+        // 遷移元URLで振り分ける(仕訳入力画面と月間仕訳のdeleteはこちらで処理される)
         $before_url = $_SERVER['HTTP_REFERER'];
         
-        if (preg_match("/m_summary/", $before_url)){
-            if (empty($id)) {
+        if(preg_match("/m_summary/", $before_url)) {
+            if(empty($id)) {
                 return redirect(route('m_summary.index'))->with('flash_message', 'データがありません');
             }
-            try{
+            try {
                 $slip = Slip::destroy($id);
             } catch(\Throwable $e) {
                 abort(500);
             }
             return redirect(route('m_summary.index'))->with('flash_message', '削除しました');
+        
         }elseif(preg_match("/slip/", $before_url)){ 
             if (empty($id)) {
                 return redirect(route('slip.index'))->with('flash_message', 'データがありません');
             }
-            try{
+            try {
                 $slip = Slip::destroy($id);
             } catch(\Throwable $e) {
                 abort(500);
@@ -166,4 +166,5 @@ class SlipController extends Controller
             return redirect(route('slip.index'))->with('flash_message', '削除しました');
         }
     }
+
 }

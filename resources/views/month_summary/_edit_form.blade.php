@@ -47,7 +47,7 @@
     <div class="accrual_year_change">
       <input type="text" class="c-row ajast" name="accrual_year" value="{{ $ms_slip->accrual_year }}/{{ $ms_slip->accrual_month }}/{{ $ms_slip->accrual_date }}">
     </div>
-  <!-- マイナスは赤字にする -->
+    <!-- マイナスは赤字にする -->
     @if ($ms_slip->price > 0)
       <div class="price_value">
         <div class="c-row ajast">¥{{ number_format($ms_slip->price) }}</div>
@@ -80,10 +80,11 @@
       </div>
     @endif
 
-      <div class="sales_tax_rate_value">
-        <div class="c-row ajast-">{{ $ms_slip->sales_tax_rate }}%</div>
-      </div>
-      <div class="sales_tax_rate_change"><input type="number" class="c-row ajast-middle" name="sales_tax_rate" value="{{ $ms_slip->sales_tax_rate }}">%</div>
+    <div class="sales_tax_rate_value">
+      <div class="c-row ajast-middle">{{ $ms_slip->sales_tax_rate }}%</div>
+    </div>
+    <div class="sales_tax_rate_change"><input type="number" class="c-row ajast-middle" name="sales_tax_rate" value="{{ $ms_slip->sales_tax_rate }}">%</div>
+
     @if ($ms_slip->sales_tax > 0)
       <div class="sales_tax_value">
       <div class="c-row ajast">

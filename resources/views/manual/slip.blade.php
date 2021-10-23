@@ -4,16 +4,16 @@
   <div class="container">
     <h3>仕訳入力マニュアル</h3>
     <hr>
-    <a class="chrome">仕訳入力とは</a><br>
-    <div class="invisible">
+    <a href="#slip1" class="secList">仕訳入力とは</a><br>
+    <div id="slip1" class="section">
       <ul>
         <li>経費を科目ごとに登録できます。</li>
         <li>今月入力した仕訳が表示されています。</li>
-        <li>仕訳入力したものは毎日0時に科目ごとに計算され、月間仕訳に表示されるようになります。</li>
+        <li>仕訳入力したものは10分に1度科目ごとに計算され、月間仕訳に表示されるようになります。</li>
       </ul>
     </div>
-    <a class="pass">伝票登録</a>
-    <div class="pass_text">
+    <a href="#slip2" class="secList">伝票登録</a>
+    <div id="slip2" class="section">
       <ul>
         <li>【登録手順】</li>
         <li>　1.伝票登録ボタンを押すと入力フォームが表示されます。</li>
