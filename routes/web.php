@@ -48,6 +48,8 @@ Route::group(['middleware' => ['auth', 'can:admin-higher']], function () {
   Route::post('subject/update/{id}', 'Slip\SubjectController@update')->name('subject.update');
   // マニュアル
   Route::get('manual/y_slip', 'Manual\ManualController@years_slip')->name('manual.y_slip');
+  Route::get('manual/subject', 'Manual\ManualController@subject')->name('manual.subject');
+  Route::get('manual/account', 'Manual\ManualController@account')->name('manual.account');
   // ユーザ管理
   Route::get('/account', 'Admin\AccountController@index')->name('account.index');
   Route::post('/account/store', 'Admin\AccountController@store')->name('account.store');

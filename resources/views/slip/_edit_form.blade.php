@@ -27,35 +27,35 @@
               </div>
               <div class="form-group">
                   <label for="year">年</label>
-                  <input type="number" name="accrual_year" class="form-control" id="year" value="{{ $sl->accrual_year }}">
+                  <input type="number" name="accrual_year" class="form-control" id="year" value="{{ $sl->accrual_year }}" required>
               </div>
               <div class="form-group">
                   <label for="month">月</label>
-                  <input type="number" name="accrual_month" class="form-control" id="month" value="{{ $sl->accrual_month }}" min="1" max="12">
+                  <input type="number" name="accrual_month" class="form-control" id="month" value="{{ $sl->accrual_month }}" min="1" max="12" required>
               </div>
               <div class="form-group">
                   <label for="date">日</label>
-                  <input type="number" name="accrual_date" class="form-control" id="date" value="{{ $sl->accrual_date }}" min="1" max="31">
+                  <input type="number" name="accrual_date" class="form-control" id="date" value="{{ $sl->accrual_date }}" min="1" max="31" required>
               </div>
               <div class="form-group">
                   <label for="price">単価</label>
-                  <input type="number" name="price" class="form-control" id="price" value="{{ $sl->price }}">
+                  <input type="number" name="price" class="form-control" id="price" value="{{ $sl->price }}" required>
               </div>
               <div class="form-group">
                   <label for="sb">本体金額</label>
-                  <input type="number" name="subtotal" class="form-control" id="sb" value="{{ $sl->subtotal }}">
+                  <input type="number" name="subtotal" class="form-control" id="sb" value="{{ $sl->subtotal }}" required>
               </div>
               <div class="form-group">
                   <label for="st_rate">消費税率(%)</label>
-                  <input type="number" name="sales_tax_rate" class="form-control" id="st_rate" value="{{ $sl->sales_tax_rate }}">
+                  <input type="number" name="sales_tax_rate" class="form-control" id="st_rate" value="{{ $sl->sales_tax_rate }}" required>
               </div>
               <div class="form-group">
                   <label for="s_tax">消費税金額</label>
-                  <input type="number" name="sales_tax" class="form-control" id="s_tax" value="{{ $sl->sales_tax }}">
+                  <input type="number" name="sales_tax" class="form-control" id="s_tax" value="{{ $sl->sales_tax }}" required>
               </div>
               <div class="form-group">
                   <label for="g_total">総計金額</label>
-                  <input type="number" name="grand_total" class="form-control" id="g_total" value="{{ $sl->grand_total }}">
+                  <input type="number" name="grand_total" class="form-control" id="g_total" value="{{ $sl->grand_total }}" required>
               </div>
               <div class="form-group">
                   <label for="rmark">備考</label>

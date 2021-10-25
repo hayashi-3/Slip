@@ -32,7 +32,7 @@
       </ul>
     </div>
     <div>
-      <a href="{{ route('manual.index') }}">マニュアル一覧へ戻る</a>
+      <a href="{{ route('manual.index') }}" class="btn btn-secondary btn-sm">マニュアル一覧へ戻る</a>
   </div>
   </div>
 @endsection
