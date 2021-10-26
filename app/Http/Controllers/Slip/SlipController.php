@@ -38,11 +38,11 @@ class SlipController extends Controller
         $dt_year = (int)$dt_year->year;
        
         // 1ヶ月分のデータを取得
-		$slip = DB::table('slips')->where('accrual_month', $dt_month)->get();
+		$slip = DB::table('slips')->where('accrual_month', $dt_month)->orderBy('accrual_date', 'asc')->get();
         // 現金支出分
-        $cash_slip = Slip::where('accrual_month', $dt_month)->where('is_cash', 0)->get();
+        $cash_slip = Slip::where('accrual_month', $dt_month)->where('is_cash', 0)->orderBy('accrual_date', 'asc')->get();
         // クレジットカード支出分
-        $credit_slip = Slip::where('accrual_month', $dt_month)->where('is_cash', 1)->get();
+        $credit_slip = Slip::where('accrual_month', $dt_month)->where('is_cash', 1)->orderBy('accrual_date', 'asc')->get();
 
         // 1ヶ月分の支出
         $gtotal_sl = Slip::where('accrual_month', $dt_month)->sum('grand_total');
@@ -105,7 +105,7 @@ class SlipController extends Controller
     {
         // バリデーション済みデータの取得
         $inputs = $request->all();
-
+        
         \DB::beginTransaction();
         try {
             $slip = Slip::find($inputs['id']);
@@ -123,7 +123,7 @@ class SlipController extends Controller
             'remarks' => $inputs['remarks'],
             ]);
             $slip->save();
-             \DB::commit();
+            \DB::commit();
 
         } catch(\Throwable $e) {
             \DB::rollback();
@@ -140,14 +140,31 @@ class SlipController extends Controller
      */
     public function destroy($id)
     {
-        if (empty($id)) {
-            return redirect(route('slip.index'))->with('flash_message', 'データがありません');
+        // 遷移元URLで振り分ける(仕訳入力画面と月間仕訳のdeleteはこちらで処理される)
+        $before_url = $_SERVER['HTTP_REFERER'];
+        
+        if(preg_match("/m_summary/", $before_url)) {
+            if(empty($id)) {
+                return redirect(route('m_summary.index'))->with('flash_message', 'データがありません');
+            }
+            try {
+                $slip = Slip::destroy($id);
+            } catch(\Throwable $e) {
+                abort(500);
+            }
+            return redirect(route('m_summary.index'))->with('flash_message', '削除しました');
+        
+        }elseif(preg_match("/slip/", $before_url)){ 
+            if (empty($id)) {
+                return redirect(route('slip.index'))->with('flash_message', 'データがありません');
+            }
+            try {
+                $slip = Slip::destroy($id);
+            } catch(\Throwable $e) {
+                abort(500);
+            }
+            return redirect(route('slip.index'))->with('flash_message', '削除しました');
         }
-        try{
-        $slip = Slip::destroy($id);
-        } catch(\Throwable $e) {
-            abort(500);
-        }
-        return redirect(route('slip.index'))->with('flash_message', '削除しました');
     }
+
 }

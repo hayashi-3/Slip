@@ -4,8 +4,8 @@
   <div class="container">
     <h3>年次決算マニュアル</h3>
     <hr>
-    <a class="chrome">年次決算とは</a><br>
-    <div class="invisible">
+    <a href="#years_s1" class="secList">年次決算とは</a><br>
+    <div id="years_s1" class="section">
       <ul>
         <li>1年の仕訳を確定します。</li>
         <li>該当の年度の伝票を登録します。</li>
@@ -14,8 +14,8 @@
         </li>
       </ul>
     </div>
-    <a class="pass">年次確定処理</a><br>
-    <div class="pass_text">
+    <a href="#years_s2" class="secList">年次確定処理</a><br>
+    <div id="years_s2" class="section">
       <ul>
         <li>年次決算処理を行いたい年度を選択して「年次決算を出力する」ボタンを押すと科目ごとの合計金額が算出されます。</li>
         <li>年次決算を出力しただけでは、年次決算は確定していませんので、金額の修正を行うことが可能です。</li>
@@ -25,11 +25,14 @@
         <li>各年度のタブ内に「年次決算を確定する」ボタンがあります。こちらを押すことで、年次決算が確定し、データを編集することができなくなります。</li>
       </ul>
     </div>
-    <a class="pass">エクセル出力</a>
-    <div class="pass_text">
+    <a href="#years_s3" class="secList">エクセル出力</a>
+    <div id="years_s3" class="section">
       <ul>
         <li>年度を選択するとエクセルで1年分の明細を出力できます。</li>
       </ul>
     </div>
+    <div>
+      <a href="{{ route('manual.index') }}" class="btn btn-secondary btn-sm">マニュアル一覧へ戻る</a>
+  </div>
   </div>
 @endsection

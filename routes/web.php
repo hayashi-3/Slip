@@ -23,7 +23,7 @@ Route::group(['middleware' => ['auth']], function () {
   // 月間サマリー
   Route::get('m_summary', 'Slip\Month_summaryController@index')->name('m_summary.index');
   Route::post('m_summary/store', 'Slip\Month_summaryController@store')->name('m_summary.store');
-  Route::get('m_summary/{year}/{month}', 'Slip\Month_summaryController@show')->name('m_summary.show');
+  Route::get('m_summary/{year}/{month}/{subject_name}', 'Slip\Month_summaryController@show')->name('m_summary.show');
   Route::post('m_summary/update', 'Slip\Month_summaryController@update')->name('m_summary.update');
   // 年間サマリー
   Route::get('y_summary', 'Slip\Years_summaryController@index')->name('y_summary.index');
@@ -48,6 +48,8 @@ Route::group(['middleware' => ['auth', 'can:admin-higher']], function () {
   Route::post('subject/update/{id}', 'Slip\SubjectController@update')->name('subject.update');
   // マニュアル
   Route::get('manual/y_slip', 'Manual\ManualController@years_slip')->name('manual.y_slip');
+  Route::get('manual/subject', 'Manual\ManualController@subject')->name('manual.subject');
+  Route::get('manual/account', 'Manual\ManualController@account')->name('manual.account');
   // ユーザ管理
   Route::get('/account', 'Admin\AccountController@index')->name('account.index');
   Route::post('/account/store', 'Admin\AccountController@store')->name('account.store');

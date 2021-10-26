@@ -17,18 +17,28 @@
   color: #fff;
 }
 
-.invisible {
-  display: none;
+li {
+  list-style: none;
 }
 
-.pass_text {
-  display: none;
+.parent-row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.c-row {
+  margin: 5px 4px 0 0;
 }
 
 .ajast {
   width: 100px;
 }
 
-.ajast_td {
-  width: 45px;
+.ajast-middle{
+  width: 70px;
+}
+
+.ajast-narrow {
+  width: 50px;
+  margin-right: 2px;
 }

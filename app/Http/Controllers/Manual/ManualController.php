@@ -32,4 +32,14 @@ class ManualController extends Controller
         return view('manual.years_slip');
     }
 
+    public function subject()
+    {
+        return view('manual.subject');
+    }
+
+    public function account()
+    {
+        return view('manual.account');
+    }
+
 }

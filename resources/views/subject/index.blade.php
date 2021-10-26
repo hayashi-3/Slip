@@ -48,8 +48,7 @@
                 </div>
                 <div class="modal-body">
                   <form method="post" action="{{ route('subject.update', $s->id) }}">
-                  @csrf
-                  @method('post')
+                    @csrf
                     <input type="hidden" name="id" value="{{ $s->id}}">
                     <div class="form-group">
                         <label for="s_name">科目名</label>
