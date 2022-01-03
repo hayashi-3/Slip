@@ -15,5 +15,7 @@ return [
 
     'failed' => 'These credentials do not match our records.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'stop_status' => 'your account no auth.',
+    'password' => 'Wrong password, plese try again.',
 
 ];

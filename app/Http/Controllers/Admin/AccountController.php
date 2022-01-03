@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AccountController extends Controller
 {
@@ -21,7 +22,11 @@ class AccountController extends Controller
 
         \DB::beginTransaction();
         try {
-            User::create($inputs);
+            User::create([
+              'name' => $inputs['name'],
+              'email' => $inputs['email'],
+              'password' => Hash::make($inputs['password']),
+            ]);
             \DB::commit();
         } catch(\Throwable $e) {
             \DB::rollback();

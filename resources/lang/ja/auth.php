@@ -15,5 +15,7 @@ return [
 
     'failed' => '入力事項に誤りがあります',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'stop_status' => 'あなたのアカウントは停止状態です。',
+    'password' => 'パスワードが違います。',
 
 ];
