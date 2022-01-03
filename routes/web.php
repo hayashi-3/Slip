@@ -11,7 +11,7 @@
 |
 */
 
-Auth::routes(['register' => false]);
+Auth::routes(['register' => false, 'verify' => false]);
 
 // ログイン済み
 Route::group(['middleware' => ['auth']], function () {

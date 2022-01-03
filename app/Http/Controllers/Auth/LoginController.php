@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
+use App\User;
 
 class LoginController extends Controller
 {
@@ -42,9 +44,35 @@ class LoginController extends Controller
     // ログイン条件
     protected function credentials(Request $request)
     {
-        $arr = $request->only($this->username(), 'password');
-        $arr['is_active'] = 0;    // 無効フラグOFFの条件を追加
-
-        return $arr;
+        // 無効フラグOFFの条件を追加
+        return array_merge(
+            $request->only($this->username(), 'password'),
+            ['is_active' => 0]
+        );
     }
+
+    protected function sendFailedLoginResponse(Request $request)
+   {
+       // ログイン時に入力されたメールアドレスからユーザーを探す
+       $user = User::where('email', $request->email)->first();
+       // もし該当するユーザーが存在すれば
+       if($user){
+           // ユーザーがアカウント停止状態なら
+           if($user->is_active === 1){
+               throw ValidationException::withMessages([
+                   $this->username() => [trans('auth.stop_status')],
+               ]);
+           // アカウント停止状態ではないのなら（パスワード打ち間違い）
+           }else{
+               throw ValidationException::withMessages([
+                   $this->username() => [trans('auth.password')],
+               ]);
+           }
+       // 該当するユーザーがいないのなら（メールアドレス打ち間違い）    
+       }else{
+           throw ValidationException::withMessages([
+               $this->username() => [trans('auth.failed')],
+           ]);
+       }
+   }
 }

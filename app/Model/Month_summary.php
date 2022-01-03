@@ -10,6 +10,7 @@ class Month_summary extends Model
 
     protected $fillable = [
         'subject_id',
+        'year',
         'month',
         'monthly_subtotal',
         'monthly_sales_tax',
