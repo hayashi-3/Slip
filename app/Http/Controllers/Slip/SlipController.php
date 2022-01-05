@@ -72,26 +72,20 @@ class SlipController extends Controller
         // 日付チェックのために結合したものを分解する
         list($accual_year, $accual_month, $accual_date) = preg_split('/[-: ]/', $inputs['accrual_year_validation']);
 
-        \DB::beginTransaction();
-        try {
-            Slip::create([
-                'subject_id' => $inputs['subject_id'],
-                'is_cash' => $inputs['is_cash'],
-                'accrual_year' => $accual_year,
-                'accrual_month' => $accual_month,
-                'accrual_date' => $accual_date,
-                'price' => $inputs['price'],
-                'subtotal' => $inputs['subtotal'],
-                'sales_tax_rate' => $inputs['sales_tax_rate'],
-                'sales_tax' => $inputs['sales_tax'],
-                'grand_total' => $inputs['grand_total'],
-                'remarks' => $inputs['remarks'],
-            ]);
-            \DB::commit();
-        } catch(\Throwable $e) {
-            \DB::rollback();
-            abort(500);
-        }
+        Slip::create([
+            'subject_id' => $inputs['subject_id'],
+            'is_cash' => $inputs['is_cash'],
+            'accrual_year' => $accual_year,
+            'accrual_month' => $accual_month,
+            'accrual_date' => $accual_date,
+            'price' => $inputs['price'],
+            'subtotal' => $inputs['subtotal'],
+            'sales_tax_rate' => $inputs['sales_tax_rate'],
+            'sales_tax' => $inputs['sales_tax'],
+            'grand_total' => $inputs['grand_total'],
+            'remarks' => $inputs['remarks'],
+        ]);
+
         return redirect(route('slip.index'))->with('flash_message', '登録しました');
     }
 
@@ -106,10 +100,8 @@ class SlipController extends Controller
         // バリデーション済みデータの取得
         $inputs = $request->all();
         
-        \DB::beginTransaction();
-        try {
-            $slip = Slip::find($inputs['id']);
-            $slip->fill([
+        $slip = Slip::find($inputs['id']);
+        $slip->fill([
             'subject_id' => $inputs['subject_id'],
             'is_cash' => $inputs['is_cash'],
             'accrual_year' => $inputs['accrual_year'],
@@ -121,14 +113,9 @@ class SlipController extends Controller
             'sales_tax' => $inputs['sales_tax'],
             'grand_total' => $inputs['grand_total'],
             'remarks' => $inputs['remarks'],
-            ]);
-            $slip->save();
-            \DB::commit();
+        ]);
+        $slip->save();
 
-        } catch(\Throwable $e) {
-            \DB::rollback();
-            abort(500);
-        }
         return redirect(route('slip.index'))->with('flash_message', '登録しました');
     }
 
@@ -144,27 +131,20 @@ class SlipController extends Controller
         $before_url = $_SERVER['HTTP_REFERER'];
         
         if(preg_match("/m_summary/", $before_url)) {
+
             if(empty($id)) {
                 return redirect(route('m_summary.index'))->with('flash_message', 'データがありません');
             }
-            try {
-                $slip = Slip::destroy($id);
-            } catch(\Throwable $e) {
-                abort(500);
-            }
+            $slip = Slip::destroy($id);
             return redirect(route('m_summary.index'))->with('flash_message', '削除しました');
         
         }elseif(preg_match("/slip/", $before_url)){ 
+
             if (empty($id)) {
                 return redirect(route('slip.index'))->with('flash_message', 'データがありません');
             }
-            try {
-                $slip = Slip::destroy($id);
-            } catch(\Throwable $e) {
-                abort(500);
-            }
+            $slip = Slip::destroy($id);
             return redirect(route('slip.index'))->with('flash_message', '削除しました');
         }
     }
-
 }

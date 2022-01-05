@@ -74,17 +74,17 @@ class Month_summaryController extends Controller
         try {
             $slip = Slip::find($inputs['id']);
             $slip->fill([
-            'subject_id' => $inputs['subject_id'],
-            'is_cash' => $inputs['is_cash'],
-            'accrual_year' => $year,
-            'accrual_month' => $month,
-            'accrual_date' => $date,
-            'price' => $inputs['price'],
-            'subtotal' => $inputs['subtotal'],
-            'sales_tax_rate' => $inputs['sales_tax_rate'],
-            'sales_tax' => $inputs['sales_tax'],
-            'grand_total' => $inputs['grand_total'],
-            'remarks' => $inputs['remarks'],
+                'subject_id' => $inputs['subject_id'],
+                'is_cash' => $inputs['is_cash'],
+                'accrual_year' => $year,
+                'accrual_month' => $month,
+                'accrual_date' => $date,
+                'price' => $inputs['price'],
+                'subtotal' => $inputs['subtotal'],
+                'sales_tax_rate' => $inputs['sales_tax_rate'],
+                'sales_tax' => $inputs['sales_tax'],
+                'grand_total' => $inputs['grand_total'],
+                'remarks' => $inputs['remarks'],
             ]);
         $slip->save();
         \DB::commit();
