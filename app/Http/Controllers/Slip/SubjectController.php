@@ -50,15 +50,8 @@ class SubjectController extends Controller
     public function store(Request $request)
     {
         $inputs = $request->all();
-
-        \DB::beginTransaction();
-        try {
-            Subject::create($inputs);
-            \DB::commit();
-        } catch(\Throwable $e) {
-            \DB::rollback();
-            abort(500);
-        }
+        Subject::create($inputs);
+        
         return redirect(route('subject.create'))->with('flash_message', '登録しました');
     }
 
@@ -73,20 +66,13 @@ class SubjectController extends Controller
     {
         $inputs = $request->all();
 
-        \DB::beginTransaction();
-        try {
-            $subject = Subject::find($inputs['id']);
-            $subject->fill([
-            'subject_name' => $inputs['subject_name'],
-            'calculation' => $inputs['calculation'],
-            ]);
-            $subject->save();
-             \DB::commit();
-
-        } catch(\Throwable $e) {
-            \DB::rollback();
-            abort(500);
-        }
+        $subject = Subject::find($inputs['id']);
+        $subject->fill([
+        'subject_name' => $inputs['subject_name'],
+        'calculation' => $inputs['calculation'],
+        ]);
+        $subject->save();
+        
         return redirect(route('subject.index'))->with('flash_message', '登録しました');
     }
 
