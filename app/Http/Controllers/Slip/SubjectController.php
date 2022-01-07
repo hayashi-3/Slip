@@ -50,15 +50,8 @@ class SubjectController extends Controller
     public function store(Request $request)
     {
         $inputs = $request->all();
+        Subject::create($inputs);
 
-        \DB::beginTransaction();
-        try {
-            Subject::create($inputs);
-            \DB::commit();
-        } catch(\Throwable $e) {
-            \DB::rollback();
-            abort(500);
-        }
         return redirect(route('subject.create'))->with('flash_message', '登録しました');
     }
 
@@ -73,20 +66,13 @@ class SubjectController extends Controller
     {
         $inputs = $request->all();
 
-        \DB::beginTransaction();
-        try {
-            $subject = Subject::find($inputs['id']);
-            $subject->fill([
+        $subject = Subject::find($inputs['id']);
+        $subject->fill([
             'subject_name' => $inputs['subject_name'],
             'calculation' => $inputs['calculation'],
-            ]);
-            $subject->save();
-             \DB::commit();
+        ]);
+        $subject->save();
 
-        } catch(\Throwable $e) {
-            \DB::rollback();
-            abort(500);
-        }
         return redirect(route('subject.index'))->with('flash_message', '登録しました');
     }
 
@@ -101,9 +87,9 @@ class SubjectController extends Controller
         if (empty($id)) {
             return redirect(route('subject.index'))->with('flash_message', 'データがありません');
         }
-        try{
-        $slip = Subject::destroy($id);
-        } catch(\Throwable $e) {
+        try {
+            $slip = Subject::destroy($id);
+        } catch (\Throwable $e) {
             abort(500);
         }
         return redirect(route('subject.index'))->with('flash_message', '削除しました');

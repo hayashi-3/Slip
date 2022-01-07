@@ -44,23 +44,24 @@ class MonthSummaryInsert extends Command
         $m_subtotal = DB::table('subjects')->leftJoin('slips', 'subjects.id', '=', 'slips.subject_id')->select('subjects.id', 'slips.accrual_year', 'slips.accrual_month', DB::raw('sum(slips.subtotal) as monthly_subtotal, sum(slips.sales_tax) as monthly_sales_tax, sum(slips.grand_total) as monthly_grand_total'))->groupBy('subjects.id', 'slips.accrual_year', 'slips.accrual_month')->get();
 
         \DB::beginTransaction();
-        try{
-            foreach($m_subtotal as $key => $mb) {
+        try {
+            foreach ($m_subtotal as $key => $mb) {
                 Month_summary::updateOrCreate(
                     ['subject_id' => $mb->id],
-                    ['subject_id' => $mb->id,
-                     'year' => $mb->accrual_year,
-                     'month'=> (int)$mb->accrual_month,
-                     'monthly_subtotal'=> $mb->monthly_subtotal,
-                     'monthly_sales_tax' => $mb->monthly_sales_tax,
-                     'monthly_grand_total' => $mb->monthly_grand_total
+                    [
+                        'subject_id' => $mb->id,
+                        'year' => $mb->accrual_year,
+                        'month' => (int)$mb->accrual_month,
+                        'monthly_subtotal' => $mb->monthly_subtotal,
+                        'monthly_sales_tax' => $mb->monthly_sales_tax,
+                        'monthly_grand_total' => $mb->monthly_grand_total
                     ]
                 );
             }
             \DB::commit();
-        } catch(\Throwable $e) { 
+        } catch (\Throwable $e) {
             \DB::rollback();
-            echo('エラーが発生しました');
+            echo ('エラーが発生しました');
         }
     }
 }

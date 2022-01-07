@@ -52,27 +52,27 @@ class LoginController extends Controller
     }
 
     protected function sendFailedLoginResponse(Request $request)
-   {
-       // ログイン時に入力されたメールアドレスからユーザーを探す
-       $user = User::where('email', $request->email)->first();
-       // もし該当するユーザーが存在すれば
-       if($user){
-           // ユーザーがアカウント停止状態なら
-           if($user->is_active === 1){
-               throw ValidationException::withMessages([
-                   $this->username() => [trans('auth.stop_status')],
-               ]);
-           // アカウント停止状態ではないのなら（パスワード打ち間違い）
-           }else{
-               throw ValidationException::withMessages([
-                   $this->username() => [trans('auth.password')],
-               ]);
-           }
-       // 該当するユーザーがいないのなら（メールアドレス打ち間違い）    
-       }else{
-           throw ValidationException::withMessages([
-               $this->username() => [trans('auth.failed')],
-           ]);
-       }
-   }
+    {
+        // ログイン時に入力されたメールアドレスからユーザーを探す
+        $user = User::where('email', $request->email)->first();
+        // もし該当するユーザーが存在すれば
+        if ($user) {
+            // ユーザーがアカウント停止状態なら
+            if ($user->is_active === 1) {
+                throw ValidationException::withMessages([
+                    $this->username() => [trans('auth.stop_status')],
+                ]);
+                // アカウント停止状態ではないのなら（パスワード打ち間違い）
+            } else {
+                throw ValidationException::withMessages([
+                    $this->username() => [trans('auth.password')],
+                ]);
+            }
+            // 該当するユーザーがいないのなら（メールアドレス打ち間違い）    
+        } else {
+            throw ValidationException::withMessages([
+                $this->username() => [trans('auth.failed')],
+            ]);
+        }
+    }
 }

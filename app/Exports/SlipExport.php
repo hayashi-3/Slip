@@ -18,7 +18,7 @@ class SlipExport implements WithMultipleSheets
         $this->year = $year;
     }
 
-     /**
+    /**
      * @return array
      */
     public function sheets(): array
@@ -29,5 +29,4 @@ class SlipExport implements WithMultipleSheets
         }
         return $sheets;
     }
-
 }
