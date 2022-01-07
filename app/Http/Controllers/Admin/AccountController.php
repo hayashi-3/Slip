@@ -20,11 +20,11 @@ class AccountController extends Controller
         // バリデーション済みデータの取得
         $inputs = $request->all();
 
-            User::create([
-              'name' => $inputs['name'],
-              'email' => $inputs['email'],
-              'password' => Hash::make($inputs['password']),
-            ]);
+        User::create([
+            'name' => $inputs['name'],
+            'email' => $inputs['email'],
+            'password' => Hash::make($inputs['password']),
+        ]);
 
         return redirect(route('account.index'));
     }
@@ -33,17 +33,16 @@ class AccountController extends Controller
     {
         $inputs = $request->all();
 
-            $user = User::find($inputs['id']);
-            $user->fill([
-                'name' => $inputs['name'],
-                'email' => $inputs['email'],
-                'password' => $inputs['password'],
-                'role' => $inputs['role'],
-                'is_active' => $inputs['is_active'],
-            ]);
-            $user->save();
+        $user = User::find($inputs['id']);
+        $user->fill([
+            'name' => $inputs['name'],
+            'email' => $inputs['email'],
+            'password' => $inputs['password'],
+            'role' => $inputs['role'],
+            'is_active' => $inputs['is_active'],
+        ]);
+        $user->save();
 
         return redirect(route('account.index'))->with('flash_message', '更新しました');
     }
-
 }

@@ -23,12 +23,11 @@ class Slip extends Model
         'annual_confirmation',
     ];
 
-     /**
+    /**
      * この伝票の科目を取得
      */
     public function subject()
     {
         return $this->belongsTo('App\Model\Subject');
     }
-
 }

@@ -25,8 +25,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('month_summary:insert')
-                 ->hourly()
-                 ->sendOutputTo(storage_path('logs/cron.log'));
+            ->hourly()
+            ->sendOutputTo(storage_path('logs/cron.log'));
     }
 
     /**
@@ -36,7 +36,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
     }

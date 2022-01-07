@@ -18,12 +18,11 @@ class Month_summary extends Model
         'monthly_grand_total',
     ];
 
-     /**
+    /**
      * 月間サマリーの科目を取得
      */
     public function m_subject()
     {
         return $this->belongsTo('App\Model\Subject');
     }
-
 }

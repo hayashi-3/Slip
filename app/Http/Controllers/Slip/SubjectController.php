@@ -51,7 +51,7 @@ class SubjectController extends Controller
     {
         $inputs = $request->all();
         Subject::create($inputs);
-        
+
         return redirect(route('subject.create'))->with('flash_message', '登録しました');
     }
 
@@ -68,11 +68,11 @@ class SubjectController extends Controller
 
         $subject = Subject::find($inputs['id']);
         $subject->fill([
-        'subject_name' => $inputs['subject_name'],
-        'calculation' => $inputs['calculation'],
+            'subject_name' => $inputs['subject_name'],
+            'calculation' => $inputs['calculation'],
         ]);
         $subject->save();
-        
+
         return redirect(route('subject.index'))->with('flash_message', '登録しました');
     }
 
@@ -87,9 +87,9 @@ class SubjectController extends Controller
         if (empty($id)) {
             return redirect(route('subject.index'))->with('flash_message', 'データがありません');
         }
-        try{
-        $slip = Subject::destroy($id);
-        } catch(\Throwable $e) {
+        try {
+            $slip = Subject::destroy($id);
+        } catch (\Throwable $e) {
             abort(500);
         }
         return redirect(route('subject.index'))->with('flash_message', '削除しました');

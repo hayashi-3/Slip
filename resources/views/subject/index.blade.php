@@ -3,15 +3,15 @@
 @section('content')
 <!-- フラッシュメッセージ -->
 @if (session('flash_message'))
-   <div class="alert alert-success">
-      {{ session('flash_message') }}
-   </div>
+<div class="alert alert-success">
+  {{ session('flash_message') }}
+</div>
 @endif
 
 <div class="container">
   <h4>科目管理</h4>
-  <a href="{{ route('subject.create') }}">		
-      <button class="btn btn-success mb-3">新規登録</button>
+  <a href="{{ route('subject.create') }}">
+    <button class="btn btn-success mb-3">新規登録</button>
   </a>
   <div class="card"></div>
 
@@ -26,7 +26,7 @@
       </tr>
     </thead>
     <tbody>
-    @foreach ($subject as $s)
+      @foreach ($subject as $s)
       <tr>
         <th scope="row">{{ $s->id }}</th>
         <td>{{ $s->subject_name }}</td>
@@ -41,22 +41,22 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editModal">伝票編集</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
+                  <h5 class="modal-title" id="editModal">伝票編集</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
                 </div>
                 <div class="modal-body">
                   <form method="post" action="{{ route('subject.update', $s->id) }}">
                     @csrf
                     <input type="hidden" name="id" value="{{ $s->id}}">
                     <div class="form-group">
-                        <label for="s_name">科目名</label>
-                        <input type="text" name="subject_name" class="form-control" id="s_name" value="{{ $s->subject_name }}">
+                      <label for="s_name">科目名</label>
+                      <input type="text" name="subject_name" class="form-control" id="s_name" value="{{ $s->subject_name }}">
                     </div>
                     <div class="form-group">
-                        <label for="cal">計算方法</label>
-                        <input type="number" name="calculation" class="form-control" id="cal" value="{{ $s->calculation }}">
+                      <label for="cal">計算方法</label>
+                      <input type="number" name="calculation" class="form-control" id="cal" value="{{ $s->calculation }}">
                     </div>
                     <button type="submit" class="btn btn-primary btn-lg btn-block">更新する</button>
                   </form>
@@ -76,7 +76,7 @@
           </form>
         </td>
       </tr>
-    @endforeach
+      @endforeach
     </tbody>
   </table>
 
