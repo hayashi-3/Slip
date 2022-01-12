@@ -6,10 +6,6 @@ use App\Model\Slip;
 use App\Model\Subject;
 use App\Http\Requests\StoreSlipPost;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Carbon\Carbon;
-use Carbon\CarbonPeriod;
-use Illuminate\Support\Facades\DB;
 use App\Repositories\SlipRepositoryInterface;
 
 class SlipController extends Controller
@@ -44,22 +40,18 @@ class SlipController extends Controller
         $dt_year = (int)$dt_year->year;
 
         // 1ヶ月分のデータを取得
-        $slip = Slip::where('accrual_month', $dt_month)->orderBy('accrual_date', 'asc')->get();
+        $slip = $this->slip_repository->monthlySlips();
         // 現金支出分
-        $cash_slip = Slip::where('accrual_month', $dt_month)->where('is_cash', 0)->orderBy('accrual_date', 'asc')->get();
+        $cash_slip = $this->slip_repository->monthlyCashTotal();
         // クレジットカード支出分
-        $credit_slip = Slip::where('accrual_month', $dt_month)->where('is_cash', 1)->orderBy('accrual_date', 'asc')->get();
+        $credit_slip = $this->slip_repository->mothlyCreditTotal();
 
         // 1ヶ月分の支出
         $gtotal_sl = $this->slip_repository->monthlyGrandTotal();
         // セレクトボックスの科目
         $subject = Subject::all();
-
-        $group_slip = DB::table('subjects')->leftJoin('slips', 'subjects.id', '=', 'slips.subject_id')
-            ->where('slips.accrual_month', $dt_month)
-            ->select('subjects.subject_name', DB::raw("sum(slips.grand_total) as sum"))
-            ->groupBy('subjects.subject_name')
-            ->get();
+        // 円グラフの値
+        $group_slip = $this->slip_repository->pieChartValue();
 
         return view('slip.index', compact('slip', 'dt_year', 'dt_month', 'subject', 'group_slip', 'cash_slip', 'credit_slip', 'gtotal_sl'));
     }
