@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Support\Facades\DB;
+use App\Repositories\SlipRepositoryInterface;
 
 class SlipController extends Controller
 {
@@ -19,9 +20,14 @@ class SlipController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
+
+    public function __construct(SlipRepositoryInterface $slip_repository)
     {
-        $this->middleware('auth');
+        $this->slip_repository = $slip_repository;
     }
 
     /**
@@ -45,7 +51,7 @@ class SlipController extends Controller
         $credit_slip = Slip::where('accrual_month', $dt_month)->where('is_cash', 1)->orderBy('accrual_date', 'asc')->get();
 
         // 1ヶ月分の支出
-        $gtotal_sl = Slip::where('accrual_month', $dt_month)->sum('grand_total');
+        $gtotal_sl = $this->slip_repository->monthlyGrandTotal();
         // セレクトボックスの科目
         $subject = Subject::all();
 
