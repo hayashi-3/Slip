@@ -30,8 +30,7 @@ class Month_summaryController extends Controller
      */
     public function index()
     {
-        $m_summary = DB::table('subjects')
-            ->leftJoin('month_summaries', 'subjects.id', '=', 'month_summaries.subject_id')
+        $m_summary = Subject::leftJoin('month_summaries', 'subjects.id', '=', 'month_summaries.subject_id')
             ->select('month_summaries.year', 'month_summaries.month', 'subjects.subject_name', DB::raw("sum(month_summaries.monthly_grand_total) as sum"))
             ->groupBy('month_summaries.year', 'month_summaries.month', 'subjects.subject_name')
             ->orderBy('month_summaries.month', 'desc')
@@ -47,8 +46,7 @@ class Month_summaryController extends Controller
 
     public function show($year, $month, $subject_name)
     {
-        $m_summary_slip = DB::table('subjects')
-            ->leftJoin('slips', 'subjects.id', '=', 'slips.subject_id')
+        $m_summary_slip = Subject::leftJoin('slips', 'subjects.id', '=', 'slips.subject_id')
             ->where('slips.accrual_year', $year)
             ->where('slips.accrual_month', $month)
             ->where('subjects.subject_name', $subject_name)

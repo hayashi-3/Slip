@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Slip;
 
 use App\Model\Years_summary;
 use App\Model\Slip;
+use App\Model\Subject;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Exports\SlipExport;
@@ -30,8 +31,7 @@ class Years_summaryController extends Controller
      */
     public function index()
     {
-        $y_summary = DB::table('subjects')
-            ->leftJoin('years_summaries', 'subjects.id', '=', 'years_summaries.subject_id')
+        $y_summary = Subject::leftJoin('years_summaries', 'subjects.id', '=', 'years_summaries.subject_id')
             ->select('years_summaries.id', 'years_summaries.accountin_year', 'years_summaries.year_subtotal', 'years_summaries.year_sales_tax', 'years_summaries.year_grand_total', 'years_summaries.confirm', 'subjects.id as subject_id', 'subjects.subject_name')
             ->orderBy('years_summaries.accountin_year', 'desc')
             ->get();
@@ -51,7 +51,12 @@ class Years_summaryController extends Controller
         $inputs = $request->all();
         $year = $inputs['year'];
 
-        $y_subtotal = DB::table('subjects')->leftJoin('slips', 'subjects.id', '=', 'slips.subject_id')->select('subjects.id', DB::raw('sum(slips.subtotal) as subtotal, sum(slips.sales_tax) as sales_tax, sum(slips.grand_total) as grand_total'))->where('slips.accrual_year', $year)->where('slips.annual_confirmation', '0')->groupBy('subjects.id')->get();
+        $y_subtotal = Subject::leftJoin('slips', 'subjects.id', '=', 'slips.subject_id')
+            ->select('subjects.id', DB::raw('sum(slips.subtotal) as subtotal, sum(slips.sales_tax) as sales_tax, sum(slips.grand_total) as grand_total'))
+            ->where('slips.accrual_year', $year)
+            ->where('slips.annual_confirmation', '0')
+            ->groupBy('subjects.id')
+            ->get();
 
         foreach ($y_subtotal as $key => $ys) {
             Years_summary::updateOrCreate(
