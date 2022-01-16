@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Exports\SlipExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\DB;
+use App\Repositories\YearsSummaryRepositoryInterface;
 
 class Years_summaryController extends Controller
 {
@@ -19,9 +20,9 @@ class Years_summaryController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(YearsSummaryRepositoryInterface $y_repository)
     {
-        $this->middleware('auth');
+        $this->y_repository = $y_repository;
     }
 
     /**
@@ -31,12 +32,9 @@ class Years_summaryController extends Controller
      */
     public function index()
     {
-        $y_summary = Subject::leftJoin('years_summaries', 'subjects.id', '=', 'years_summaries.subject_id')
-            ->select('years_summaries.id', 'years_summaries.accountin_year', 'years_summaries.year_subtotal', 'years_summaries.year_sales_tax', 'years_summaries.year_grand_total', 'years_summaries.confirm', 'subjects.id as subject_id', 'subjects.subject_name')
-            ->orderBy('years_summaries.accountin_year', 'desc')
-            ->get();
+        $y_summary = $this->y_repository->thisYearSlips();
 
-        $years = Years_summary::select('accountin_year')->get();
+        $years = $this->y_repository->accountionYear();
 
         return view('years_summary.index', compact('y_summary', 'years'));
     }

@@ -2,7 +2,11 @@
 
 namespace App\Repositories;
 
-interface SlipRepositoryInterface {
-  // 1ヶ月の伝票を取得
+interface SlipRepositoryInterface
+{
+  public function monthlySlips();
+  public function monthlyCashTotal();
+  public function mothlyCreditTotal();
   public function monthlyGrandTotal();
+  public function pieChartValue();
 }

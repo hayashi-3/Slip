@@ -17,6 +17,10 @@ class AppServiceProvider extends ServiceProvider
             \App\Repositories\SlipRepositoryInterface::class,
             \App\Repositories\SlipRepository::class
         );
+        $this->app->bind(
+            \App\Repositories\YearsSummaryRepositoryInterface::class,
+            \App\Repositories\YearsSummaryRepository::class
+        );
     }
 
     /**
