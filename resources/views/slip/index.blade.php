@@ -25,7 +25,7 @@
       <!-- 新規登録フォーム -->
       @include('slip/_create_form')
 
-      <h4 class="mt-3">今月の支出　¥{{ number_format($gtotal_sl) }} (税込)</h4>
+      <h4 class="mt-3">今月の支出　¥{{ number_format($gtotalSl) }} (税込)</h4>
 
       <ul class="tab-menu">
          <li class="tab-menu__item">
@@ -151,7 +151,7 @@
                   </tr>
                </thead>
                <tbody>
-                  @foreach ($cash_slip as $sl)
+                  @foreach ($cashSlip as $sl)
                   <tr>
                      <th scope="row">{{ $sl->id }}</th>
                      @if ($sl->is_cash === 0)
@@ -213,7 +213,7 @@
                   </tr>
                </thead>
                <tbody>
-                  @foreach ($credit_slip as $sl)
+                  @foreach ($creditSlip as $sl)
                   <tr>
                      <th scope="row">{{ $sl->id }}</th>
                      @if ($sl->is_cash === 0)
@@ -263,18 +263,18 @@
    <div class="mt-5">
       <canvas id="pieChart"></canvas>
       <script type="text/javascript">
-         var json_slip = <?php
-                           $json_slip = json_encode($group_slip);
-                           echo $json_slip; ?>;
+         var jsonSlip = <?php
+                           $jsonSlip = json_encode($groupSlip);
+                           echo $jsonSlip; ?>;
 
          var subject_names = [];
-         for (var i = 0; i < json_slip.length; i++) {
-            subject_names.push(json_slip[i].subject_name);
+         for (var i = 0; i < jsonSlip.length; i++) {
+            subject_names.push(jsonSlip[i].subject_name);
          }
 
          var subtotal = [];
-         for (var i = 0; i < json_slip.length; i++) {
-            subtotal.push(json_slip[i].sum);
+         for (var i = 0; i < jsonSlip.length; i++) {
+            subtotal.push(jsonSlip[i].sum);
          }
       </script>
    </div>

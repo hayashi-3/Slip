@@ -4,9 +4,9 @@ namespace App\Repositories;
 
 interface SlipRepositoryInterface
 {
-  public function monthlySlips();
-  public function monthlyCashTotal();
-  public function mothlyCreditTotal();
-  public function monthlyGrandTotal();
-  public function pieChartValue();
+  public function monthlySlips(int $dtYear, int $dtMonth);
+  public function monthlyCashTotal(int $dtYear, int $dtMonth);
+  public function mothlyCreditTotal(int $dtYear, int $dtMonth);
+  public function monthlyGrandTotal(int $dtYear, int $dtMonth);
+  public function pieChartValue(int $dtYear, int $dtMonth);
 }

@@ -41,11 +41,11 @@
           </div>
           <div class="form-group">
             <label for="year">年</label>
-            <input type="number" name="accrual_year" class="form-control" id="year" value="{{ $dt_year }}" required>
+            <input type="number" name="accrual_year" class="form-control" id="year" value="{{ $dtYear }}" required>
           </div>
           <div class="form-group">
             <label for="month">月</label>
-            <input type="number" name="accrual_month" class="form-control" id="month" value="{{ $dt_month }}" required>
+            <input type="number" name="accrual_month" class="form-control" id="month" value="{{ $dtMonth }}" required>
           </div>
           <div class="form-group">
             <label for="date">日</label>

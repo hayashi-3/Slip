@@ -17,9 +17,9 @@ class SlipController extends Controller
      * @return void
      */
 
-    public function __construct(SlipRepositoryInterface $slip_repository)
+    public function __construct(SlipRepositoryInterface $slipRepository)
     {
-        $this->slip_repository = $slip_repository;
+        $this->slipRepository = $slipRepository;
     }
 
     /**
@@ -29,27 +29,27 @@ class SlipController extends Controller
      */
     public function index()
     {
-        $dt_month = new \Carbon\Carbon();
-        $dt_month = (int)$dt_month->month;
+        $dtMonth = new \Carbon\Carbon();
+        $dtMonth = (int)$dtMonth->month;
 
-        $dt_year = new \Carbon\Carbon();
-        $dt_year = (int)$dt_year->year;
+        $dtYear = new \Carbon\Carbon();
+        $dtYear = (int)$dtYear->year;
 
         // 1ヶ月分のデータを取得
-        $slip = $this->slip_repository->monthlySlips();
+        $slip = $this->slipRepository->monthlySlips($dtYear, $dtMonth);
         // 現金支出分
-        $cash_slip = $this->slip_repository->monthlyCashTotal();
+        $cashSlip = $this->slipRepository->monthlyCashTotal($dtYear, $dtMonth);
         // クレジットカード支出分
-        $credit_slip = $this->slip_repository->mothlyCreditTotal();
+        $creditSlip = $this->slipRepository->mothlyCreditTotal($dtYear, $dtMonth);
 
         // 1ヶ月分の支出
-        $gtotal_sl = $this->slip_repository->monthlyGrandTotal();
+        $gtotalSl = $this->slipRepository->monthlyGrandTotal($dtYear, $dtMonth);
         // セレクトボックスの科目
         $subject = Subject::all();
         // 円グラフの値
-        $group_slip = $this->slip_repository->pieChartValue();
+        $groupSlip = $this->slipRepository->pieChartValue($dtYear, $dtMonth);
 
-        return view('slip.index', compact('slip', 'dt_year', 'dt_month', 'subject', 'group_slip', 'cash_slip', 'credit_slip', 'gtotal_sl'));
+        return view('slip.index', compact('slip', 'dtYear', 'dtMonth', 'subject', 'groupSlip', 'cashSlip', 'creditSlip', 'gtotalSl'));
     }
 
     /**
